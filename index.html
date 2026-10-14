@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CA Toolkit — by CA Umang Mehta</title>
+<meta name="description" content="Free, offline, privacy-first tools for Chartered Accountants and finance teams. Built by CA Umang Mehta (@mehtaknowstech).">
+<meta property="og:title" content="CA Toolkit — free offline tools for CAs">
+<meta property="og:description" content="15 PDF tools in one file: merge, split, AES-256 protect, PAN/Aadhaar/GSTIN redaction, compress, Bates numbering and more. Nothing is uploaded.">
+<meta property="og:image" content="assets/screenshots/merge.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23f97316'/%3E%3Ctext x='16' y='21' font-size='13' font-family='Arial' font-weight='700' text-anchor='middle' fill='white'%3ECA%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F6F4EF; --card:#FFFFFF; --ink:#13203A; --soft:#56627A; --faint:#8C96A8;
+  --line:#E3DFD5; --navy:#172554; --orange:#EA6A12; --orange-soft:#FFF1E6; --brass:#9A7B34;
+  --shadow:0 1px 0 rgba(19,32,58,.04), 0 18px 40px -24px rgba(19,32,58,.35);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0A1022; --card:#111A33; --ink:#E8ECF5; --soft:#A3AEC4; --faint:#6B7891;
+    --line:#22304F; --navy:#0E1838; --orange:#F7883A; --orange-soft:#2A1C10; --brass:#D4B264;
+    --shadow:0 18px 40px -24px rgba(0,0,0,.8);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0A1022; --card:#111A33; --ink:#E8ECF5; --soft:#A3AEC4; --faint:#6B7891;
+  --line:#22304F; --navy:#0E1838; --orange:#F7883A; --orange-soft:#2A1C10; --brass:#D4B264;
+  --shadow:0 18px 40px -24px rgba(0,0,0,.8);
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font:16px/1.6 Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.wrap{max-width:1080px;margin:0 auto;padding:0 16px}
+.serif{font-family:Fraunces,Georgia,serif;letter-spacing:-.01em}
+.eyebrow{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--brass);font-weight:600}
+
+header{padding:22px 0}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-weight:600}
+.mark{width:34px;height:34px;border-radius:9px;background:var(--orange);color:#fff;display:grid;place-items:center;font-weight:700;font-size:13px}
+.nav a.gh{font-size:14px;color:var(--soft);text-decoration:none;border:1px solid var(--line);padding:7px 14px;border-radius:999px}
+.nav a.gh:hover{color:var(--ink);border-color:var(--soft)}
+
+.hero{padding:48px 0 36px;text-align:center}
+.hero h1{font-size:clamp(34px,6vw,58px);line-height:1.08;margin:14px auto 16px;max-width:15ch;font-weight:700}
+.hero h1 em{font-style:normal;color:var(--orange)}
+.hero p{color:var(--soft);font-size:18px;max-width:58ch;margin:0 auto}
+.pills{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:22px}
+.pill{font-size:13px;border:1px solid var(--line);background:var(--card);border-radius:999px;padding:5px 12px;color:var(--soft)}
+
+.tool{background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);overflow:hidden;margin:24px 0 18px}
+.tool-top{display:grid;grid-template-columns:1.1fr 1fr;gap:0}
+.tool-info{padding:34px 34px 30px;display:flex;flex-direction:column;gap:14px}
+.tool-info h2{font-size:32px;margin:0;line-height:1.15}
+.tool-info p{margin:0;color:var(--soft)}
+.feat{list-style:none;padding:0;margin:4px 0 0;display:grid;grid-template-columns:1fr 1fr;gap:8px 16px;font-size:14.5px}
+.feat li{display:flex;gap:8px;align-items:baseline}
+.feat li::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--orange);flex:none;transform:translateY(-2px)}
+.cta{display:flex;gap:10px;flex-wrap:wrap;margin-top:8px}
+.btn{display:inline-flex;align-items:center;gap:8px;text-decoration:none;font-weight:600;font-size:15px;border-radius:10px;padding:12px 20px;border:1px solid var(--line)}
+.btn.primary{background:var(--orange);border-color:var(--orange);color:#fff}
+.btn.primary:hover{filter:brightness(1.06)}
+.btn:not(.primary):hover{border-color:var(--soft)}
+.shot{background:var(--navy);padding:26px 0 0 26px;display:flex;align-items:flex-end;min-height:300px}
+.shot img{width:100%;height:100%;object-fit:cover;object-position:left top;border-radius:10px 0 0 0;display:block;box-shadow:0 10px 30px rgba(0,0,0,.35)}
+.gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border-top:1px solid var(--line)}
+.gallery figure{margin:0;background:var(--card);padding:16px}
+.gallery img{width:100%;border-radius:8px;border:1px solid var(--line);display:block}
+.gallery figcaption{font-size:13px;color:var(--soft);margin-top:8px}
+
+.soon{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin:18px 0 0}
+.soon .card{background:var(--card);border:1px dashed var(--line);border-radius:16px;padding:24px}
+.soon h3{margin:6px 0 6px;font-size:21px}
+.soon p{margin:0;color:var(--soft);font-size:15px}
+
+.why{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin:56px 0}
+.why div{border-top:2px solid var(--brass);padding-top:14px}
+.why h4{margin:0 0 6px;font-size:16px}
+.why p{margin:0;color:var(--soft);font-size:14.5px}
+
+footer{border-top:1px solid var(--line);padding:28px 0 40px;color:var(--soft);font-size:14px}
+.foot{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.foot a{text-decoration:none;border-bottom:1px solid var(--line)}
+.foot a:hover{border-color:var(--orange)}
+
+@media (max-width:860px){
+  .tool-top{grid-template-columns:1fr}
+  .shot{padding:18px 0 0 18px;min-height:0}
+  .tool-info{padding:24px 20px}
+  .gallery{grid-template-columns:1fr}
+  .soon,.why{grid-template-columns:1fr}
+}
+@media (max-width:480px){ .feat{grid-template-columns:1fr} }
+</style>
+</head>
+<body>
+<header class="wrap">
+  <nav class="nav">
+    <a class="brand" href="./"><span class="mark">CA</span><span>CA Toolkit</span></a>
+    <a class="gh" id="ghLink" href="https://github.com/imumehta/ca-toolkit">View on GitHub</a>
+  </nav>
+</header>
+
+<main class="wrap">
+  <section class="hero">
+    <span class="eyebrow">by CA Umang Mehta · @mehtaknowstech</span>
+    <h1 class="serif">Practical tools for <em>Chartered Accountants</em></h1>
+    <p>Free, offline and private. Built inside a working CA practice to save hours on the everyday document work of audits, filings and client files.</p>
+    <div class="pills"><span class="pill">No sign-up</span><span class="pill">Nothing uploaded</span><span class="pill">Works offline</span><span class="pill">Open source</span></div>
+  </section>
+
+  <article class="tool">
+    <div class="tool-top">
+      <div class="tool-info">
+        <span class="eyebrow">Tool 01 · HTML</span>
+        <h2 class="serif">PDF Suite</h2>
+        <p>Fifteen PDF tools in a single file. Every page is processed inside your browser, so client documents never leave your computer.</p>
+        <ul class="feat">
+          <li>Merge with annexure dividers</li>
+          <li>Split, extract and reorder pages</li>
+          <li>AES-256 password protection</li>
+          <li>Redact PAN, Aadhaar and GSTIN</li>
+          <li>Compress for e-mail and portals</li>
+          <li>Bates and section page numbers</li>
+          <li>Watermarks, stamps and signatures</li>
+          <li>PDF ↔ images, PDF → Word</li>
+        </ul>
+        <div class="cta">
+          <a class="btn primary" href="tools/pdf-suite/">Open PDF Suite →</a>
+          <a class="btn" href="tools/pdf-suite/index.html" download="PDF_Suite.html">Download for offline use</a>
+        </div>
+      </div>
+      <div class="shot"><img src="assets/screenshots/merge.png" alt="PDF Suite merging three financial statements into one file" loading="eager"></div>
+    </div>
+    <div class="gallery">
+      <figure><img src="assets/screenshots/redact.png" alt="Auto-detecting PAN, GSTIN and mobile numbers for redaction" loading="lazy"><figcaption>Auto-detect and permanently redact Indian identifiers</figcaption></figure>
+      <figure><img src="assets/screenshots/organise.png" alt="Visual page organiser with thumbnails" loading="lazy"><figcaption>Drag-and-drop page organiser</figcaption></figure>
+      <figure><img src="assets/screenshots/protect.png" alt="Batch AES-256 password protection" loading="lazy"><figcaption>Batch AES-256 protection before e-mailing clients</figcaption></figure>
+    </div>
+  </article>
+
+  <section class="soon">
+    <div class="card"><span class="eyebrow">Coming soon</span><h3 class="serif">Excel VBA macros</h3><p>Automation for reconciliations, ledgers and reporting, with step-by-step install guides.</p></div>
+    <div class="card"><span class="eyebrow">Coming soon</span><h3 class="serif">More HTML tools</h3><p>Single-file utilities you can open from your desktop, with no installs and no IT tickets.</p></div>
+  </section>
+
+  <section class="why">
+    <div><h4>Private by design</h4><p>No servers, no tracking and no uploads. Safe for confidential client data.</p></div>
+    <div><h4>Zero setup</h4><p>One HTML file. Double-click it and it opens in your browser, even without internet.</p></div>
+    <div><h4>Made by a practitioner</h4><p>Each tool solves a real problem from a CA practice in Jamnagar, Gujarat.</p></div>
+  </section>
+</main>
+
+<footer class="wrap">
+  <div class="foot">
+    <span>© 2026 CA Umang Mehta · Partner, BRS &amp; Associates, Chartered Accountants</span>
+    <span><a href="https://www.instagram.com/mehtaknowstech/">Instagram @mehtaknowstech</a></span>
+  </div>
+</footer>
+<script>
+  // Point "View on GitHub" at this repo when served from GitHub Pages (user.github.io/repo/)
+  (function(){
+    var h = location.hostname, m = h.match(/^([^.]+)\.github\.io$/);
+    if (m) { var repo = location.pathname.split('/').filter(Boolean)[0] || ''; document.getElementById('ghLink').href = 'https://github.com/' + m[1] + '/' + repo; }
+  })();
+</script>
+</body>
+</html>
