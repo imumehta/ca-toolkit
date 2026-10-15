@@ -18,12 +18,13 @@ Built by **CA Umang Mehta**, Partner at BRS & Associates, Chartered Accountants,
 
 | # | Tool | Type | What it does |
 |---|------|------|--------------|
-| 01 | [**PDF Suite**](tools/pdf-suite/) | HTML | 15 PDF tools in one file: merge, split, protect, redact, compress, number, stamp, convert |
-| 02 | Excel VBA macros | VBA | *Coming soon* |
+| 01 | [**PDF Suite**](01-pdf-suite/) | HTML | 15 PDF tools in one file: merge, split, protect, redact, compress, number, stamp, convert |
+| 02 | [**Encrypt / Decrypt Data**](02-encrypt-decrypt-vba/) | Excel VBA | Mask client names, PANs and other text in selected cells with one click, and restore it just as easily |
+| 03 | More tools | | *Coming soon* |
 
 ---
 
-## 📄 PDF Suite
+## 📄 01 · PDF Suite
 
 ![PDF Suite: merging financial statements](assets/screenshots/merge.png)
 
@@ -55,10 +56,10 @@ A complete PDF workbench in a **single HTML file** (about 4 MB). Every engine is
 
 ### How to use
 
-**Option A: online.** Open the [live version](https://imumehta.github.io/ca-toolkit/tools/pdf-suite/). It still runs 100% in your browser.
+**Option A: online.** Open the [live version](https://imumehta.github.io/ca-toolkit/01-pdf-suite/). It still runs 100% in your browser.
 
 **Option B: offline (recommended for client work).**
-1. Download [`tools/pdf-suite/index.html`](tools/pdf-suite/index.html) (on that page, use **⋯ → Download**).
+1. Download [`01-pdf-suite/index.html`](01-pdf-suite/index.html) (on that page, use **⋯ → Download**).
 2. Save it anywhere, e.g. your desktop, as `PDF_Suite.html`.
 3. Double-click to open it in Chrome or Edge.
 
@@ -66,10 +67,22 @@ A complete PDF workbench in a **single HTML file** (about 4 MB). Every engine is
 
 ---
 
+## 🔤 02 · Encrypt / Decrypt Data (Excel VBA)
+
+![Client list before and after Encrypt_Data](assets/screenshots/encrypt-decrypt.png)
+
+Two macros for Excel. **`Encrypt_Data`** turns every letter in the selected cells into a Greek letter or symbol (`Demo Textiles` → `Δενο Υεωυιμετ`), and **`Decrypt_Data`** turns it back. Numbers, dates and formulas are never touched, so totals keep working.
+
+Handy for screenshots, demos and sample files where client names shouldn't be readable. It is **masking, not password security**: anyone with the macro can reverse it.
+
+**[Install guide and download →](02-encrypt-decrypt-vba/)**
+
+---
+
 ## 🔒 Privacy
 
-- No servers, analytics, cookies or network requests. All processing happens in the browser tab.
-- The only thing stored locally is your light/dark theme preference.
+- No servers, analytics, cookies or network requests. The PDF Suite runs in your browser tab and the macros run inside your own Excel.
+- The only thing the PDF Suite stores locally is your light/dark theme preference.
 - Only process documents you are authorised to handle.
 
 ## 🏗️ Built with

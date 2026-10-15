@@ -67,6 +67,11 @@ header{padding:22px 0}
 .btn:not(.primary):hover{border-color:var(--soft)}
 .shot{background:var(--navy);padding:26px 0 0 26px;display:flex;align-items:flex-end;min-height:300px}
 .shot img{width:100%;height:100%;object-fit:cover;object-position:left top;border-radius:10px 0 0 0;display:block;box-shadow:0 10px 30px rgba(0,0,0,.35)}
+.tool-top.single{grid-template-columns:1fr}
+.tool-top.single .feat{grid-template-columns:repeat(3,1fr)}
+.wide-shot{border-top:1px solid var(--line);background:var(--bg)}
+.wide-shot img{width:100%;height:auto;display:block}
+.note{font-size:13.5px;border-left:2px solid var(--brass);padding-left:10px}
 .gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border-top:1px solid var(--line)}
 .gallery figure{margin:0;background:var(--card);padding:16px}
 .gallery img{width:100%;border-radius:8px;border:1px solid var(--line);display:block}
@@ -92,6 +97,7 @@ footer{border-top:1px solid var(--line);padding:28px 0 40px;color:var(--soft);fo
   .shot{padding:18px 0 0 18px;min-height:0}
   .tool-info{padding:24px 20px}
   .gallery{grid-template-columns:1fr}
+  .tool-top.single .feat{grid-template-columns:1fr}
   .soon,.why{grid-template-columns:1fr}
 }
 @media (max-width:480px){ .feat{grid-template-columns:1fr} }
@@ -130,8 +136,8 @@ footer{border-top:1px solid var(--line);padding:28px 0 40px;color:var(--soft);fo
           <li>PDF ↔ images, PDF → Word</li>
         </ul>
         <div class="cta">
-          <a class="btn primary" href="tools/pdf-suite/">Open PDF Suite →</a>
-          <a class="btn" href="tools/pdf-suite/index.html" download="PDF_Suite.html">Download for offline use</a>
+          <a class="btn primary" href="01-pdf-suite/">Open PDF Suite →</a>
+          <a class="btn" href="01-pdf-suite/index.html" download="PDF_Suite.html">Download for offline use</a>
         </div>
       </div>
       <div class="shot"><img src="assets/screenshots/merge.png" alt="PDF Suite merging three financial statements into one file" loading="eager"></div>
@@ -143,14 +149,38 @@ footer{border-top:1px solid var(--line);padding:28px 0 40px;color:var(--soft);fo
     </div>
   </article>
 
+  <article class="tool">
+    <div class="tool-top single">
+      <div class="tool-info">
+        <span class="eyebrow">Tool 02 · Excel VBA</span>
+        <h2 class="serif">Encrypt / Decrypt Data</h2>
+        <p>Select cells, run one macro, and client names, PANs and other text turn into unreadable symbols. Run the second macro to bring them back.</p>
+        <ul class="feat">
+          <li>Masks every letter in the selection</li>
+          <li>Restores the text exactly</li>
+          <li>Leaves numbers and dates alone</li>
+          <li>Formulas are never touched</li>
+          <li>Works on any selection or sheet</li>
+          <li>Plain .bas file, easy to review</li>
+        </ul>
+        <p class="note">Masking hides text from casual view, for example in screenshots or demo files. It is not password security: anyone with this macro can reverse it.</p>
+        <div class="cta">
+          <a class="btn primary" href="02-encrypt-decrypt-vba/EncryptDecrypt.bas" download="EncryptDecrypt.bas">Download macro (.bas) →</a>
+          <a class="btn" href="https://github.com/imumehta/ca-toolkit/tree/main/02-encrypt-decrypt-vba">Install guide</a>
+        </div>
+      </div>
+    </div>
+    <div class="wide-shot"><img src="assets/screenshots/encrypt-decrypt.png" alt="Client list before and after running Encrypt_Data: letters become Greek symbols, numbers and totals stay the same" loading="lazy"></div>
+  </article>
+
   <section class="soon">
-    <div class="card"><span class="eyebrow">Coming soon</span><h3 class="serif">Excel VBA macros</h3><p>Automation for reconciliations, ledgers and reporting, with step-by-step install guides.</p></div>
+    <div class="card"><span class="eyebrow">Coming soon</span><h3 class="serif">More Excel macros</h3><p>Automation for reconciliations, ledgers and reporting, with step-by-step install guides.</p></div>
     <div class="card"><span class="eyebrow">Coming soon</span><h3 class="serif">More HTML tools</h3><p>Single-file utilities you can open from your desktop, with no installs and no IT tickets.</p></div>
   </section>
 
   <section class="why">
     <div><h4>Private by design</h4><p>No servers, no tracking and no uploads. Safe for confidential client data.</p></div>
-    <div><h4>Zero setup</h4><p>One HTML file. Double-click it and it opens in your browser, even without internet.</p></div>
+    <div><h4>Zero setup</h4><p>One HTML file or one macro. No installs, no accounts, and it works without internet.</p></div>
     <div><h4>Made by a practitioner</h4><p>Each tool solves a real problem from a CA practice in Jamnagar, Gujarat.</p></div>
   </section>
 </main>

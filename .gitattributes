@@ -1,0 +1,3 @@
+# Keep VBA modules byte-for-byte (CRLF) so they import cleanly into Excel
+*.bas -text
+*.cls -text
