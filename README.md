@@ -6,7 +6,7 @@
 
 Built by **CA Umang Mehta**, Partner at BRS & Associates, Chartered Accountants, Jamnagar.
 
-[**▶ Try it live**](https://imumehta.github.io/ca-toolkit/) · [Instagram @mehtaknowstech](https://www.instagram.com/mehtaknowstech/)
+[**▶ Try it live**](https://imumehta.github.io/ca-toolkit/) · [Instagram @mehtaknowstech](https://www.instagram.com/mehtaknowstech/) · [All links: allmylinks.com/imumehta](https://allmylinks.com/imumehta)
 
 ![No sign-up](https://img.shields.io/badge/sign--up-none-2F5D50) ![Runs offline](https://img.shields.io/badge/runs-offline-172554) ![Nothing uploaded](https://img.shields.io/badge/uploads-zero-EA6A12) ![License: MIT](https://img.shields.io/badge/license-MIT-9A7B34)
 
@@ -20,7 +20,8 @@ Built by **CA Umang Mehta**, Partner at BRS & Associates, Chartered Accountants,
 |---|------|------|--------------|
 | 01 | [**PDF Suite**](01-pdf-suite/) | HTML | 15 PDF tools in one file: merge, split, protect, redact, compress, number, stamp, convert |
 | 02 | [**Encrypt / Decrypt Data**](02-encrypt-decrypt-vba/) | Excel VBA | Mask client names, PANs and other text in selected cells with one click, and restore it just as easily |
-| 03 | More tools | | *Coming soon* |
+| 03 | [**Ledger Lens: Bank Statement Converter**](03-bank-statement-converter/) | HTML | Bank statement PDF → Excel/CSV, with every row checked against the running balance |
+| 04 | More tools | | *Coming soon* |
 
 ---
 
@@ -79,15 +80,42 @@ Handy for screenshots, demos and sample files where client names shouldn't be re
 
 ---
 
+## 🏦 03 · Ledger Lens: Bank Statement Converter
+
+![Ledger Lens: sample statement converted, every row checked](assets/screenshots/bsc-review.png)
+
+Turn bank statement PDFs into a clean Excel or CSV file (Date · Narration · Chq/Ref No · Debit · Credit · Balance) without uploading them anywhere.
+
+- **Reads by column, not by guesswork.** It finds the statement's own headings, then places every amount under the column it sits in, so a blank Debit or Credit cell never shifts a number across. Cheque/UTR numbers and value dates stay out of the narration.
+- **Checks every row.** *Previous balance + credit − debit = balance* is tested on each line. Rows that pass get ✓; anything else is shaded ⚠ so you can compare it with the PDF before you export.
+- **Handles the usual layouts:** separate Withdrawal/Deposit columns, a single Amount column with Dr/Cr, `Cr`/`(Dr)` balances, overdrafts, newest-first statements, wrapped narrations, and dates printed once per day.
+- **Password-protected PDFs** open with a masked password box. The password stays in the browser tab.
+- **A formula-driven Excel ledger.** Title, an Opening Balance row, then Date · Narration · Ref No. · Debit · Credit · Balance, where every Balance cell is a live formula (`=F5-D6+E6`), so the workbook re-totals itself if you correct an entry. Real dates, `#,##0.00` amounts, frozen header, filters, and one sheet per statement.
+- Search, date/amount filters, duplicate finder, editable cells, multi-statement merge and CSV export.
+- **Works offline.** PDF reading and Excel export are built into the file. Scanned (image) statements get basic OCR, which downloads the OCR engine the first time and needs a careful review.
+
+<table>
+<tr>
+<td width="50%"><img src="assets/screenshots/bsc-check.png" alt="A mis-keyed amount flagged by the balance check"><br><sub><b>The balance check at work.</b> One amount was changed by hand, so the row is flagged and the dashboard shows "1 to review".</sub></td>
+<td width="50%"><img src="assets/screenshots/bsc-upload.png" alt="Upload screen with sample statement"><br><sub><b>No statement handy?</b> "Try a sample statement" loads a made-up one-page statement.</sub></td>
+</tr>
+</table>
+
+**[▶ Open Ledger Lens](https://imumehta.github.io/ca-toolkit/03-bank-statement-converter/)** · or right-click → *Save link as…* on [the HTML file](03-bank-statement-converter/index.html) to keep it on your desktop. A [sample statement](03-bank-statement-converter/sample-statement.pdf) (made-up data) is included.
+
+> Always glance at the ⚠ rows and the totals against the PDF before relying on the output. Every bank formats statements differently. If one isn't read well, email **CA Umang Mehta** at [umang.mehta@mail.ca.in](mailto:umang.mehta@mail.ca.in) or [open an issue](../../issues), with account numbers and names masked.
+
+---
+
 ## 🔒 Privacy
 
-- No servers, analytics, cookies or network requests. The PDF Suite runs in your browser tab and the macros run inside your own Excel.
-- The only thing the PDF Suite stores locally is your light/dark theme preference.
+- No servers, analytics, cookies or uploads. The HTML tools run in your browser tab and the macros run inside your own Excel. (The bank statement converter contacts a CDN only if you open a *scanned* statement, to fetch the OCR engine; your file is not sent.)
+- The only thing the HTML tools store locally is your light/dark theme preference.
 - Only process documents you are authorised to handle.
 
 ## 🏗️ Built with
 
-These open-source engines are embedded in the HTML file:
+These open-source engines are embedded in the HTML files:
 
 | Engine | Purpose | License |
 |---|---|---|
@@ -95,6 +123,7 @@ These open-source engines are embedded in the HTML file:
 | [PDF.js](https://github.com/mozilla/pdf.js) 3.11.174 | Rendering pages and extracting text | Apache-2.0 |
 | [JSZip](https://github.com/Stuk/jszip) 3.10.1 | "Download all" as .zip | MIT / GPLv3 (used under MIT) |
 | [qpdf](https://github.com/qpdf/qpdf) 11 (WebAssembly) | AES-256 encryption and decryption | Apache-2.0 |
+| [Tesseract.js](https://github.com/naptha/tesseract.js) 5.0.4 | OCR for scanned statements (loaded on demand, not embedded) | Apache-2.0 |
 
 See [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
 

@@ -10,4 +10,10 @@ The PDF Suite (`tools/pdf-suite/index.html`) embeds the following open-source so
 | JSZip | 3.10.1 | © 2009-2016 Stuart Knightley, David Duponchel, Franz Buchinger, António Afonso | MIT (dual-licensed MIT/GPLv3; used under MIT): https://github.com/Stuk/jszip/blob/main/LICENSE.markdown |
 | qpdf, compiled to WebAssembly | 11.x | © 2005-2024 Jay Berkenbilt and qpdf contributors | Apache-2.0: https://github.com/qpdf/qpdf/blob/main/LICENSE.txt |
 
+Ledger Lens (`03-bank-statement-converter/index.html`) embeds PDF.js 3.11.174 and its worker (as above). Its Excel writer is original code. It also uses:
+
+| Component | Version | Copyright | License |
+|---|---|---|---|
+| Tesseract.js (loaded from jsDelivr only when a scanned page is found; not embedded) | 5.0.4 | © 2015 Guillermo Webster, Kevin Kwok and contributors | Apache-2.0: https://github.com/naptha/tesseract.js/blob/master/LICENSE.md |
+
 The full Apache License 2.0 text is available at https://www.apache.org/licenses/LICENSE-2.0.

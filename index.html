@@ -6,7 +6,7 @@
 <title>CA Toolkit — by CA Umang Mehta</title>
 <meta name="description" content="Free, offline, privacy-first tools for Chartered Accountants and finance teams. Built by CA Umang Mehta (@mehtaknowstech).">
 <meta property="og:title" content="CA Toolkit — free offline tools for CAs">
-<meta property="og:description" content="15 PDF tools in one file: merge, split, AES-256 protect, PAN/Aadhaar/GSTIN redaction, compress, Bates numbering and more. Nothing is uploaded.">
+<meta property="og:description" content="Free tools for CAs: a 15-in-1 PDF suite, a bank statement PDF to Excel converter with a running-balance check, and Excel macros. Nothing is uploaded.">
 <meta property="og:image" content="assets/screenshots/merge.png">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23f97316'/%3E%3Ctext x='16' y='21' font-size='13' font-family='Arial' font-weight='700' text-anchor='middle' fill='white'%3ECA%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -92,7 +92,13 @@ footer{border-top:1px solid var(--line);padding:28px 0 40px;color:var(--soft);fo
 .foot a{text-decoration:none;border-bottom:1px solid var(--line)}
 .foot a:hover{border-color:var(--orange)}
 
+.connect{display:grid;grid-template-columns:1fr 200px;gap:28px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);padding:30px 34px;margin:24px 0 0}
+.connect h3{font-size:26px;margin:8px 0 8px;line-height:1.2}
+.connect p{margin:0 0 16px;color:var(--soft)}
+.connect img{width:100%;border-radius:14px;display:block}
 @media (max-width:860px){
+  .connect{grid-template-columns:1fr;padding:24px 20px}
+  .connect img{max-width:220px;margin:0 auto}
   .tool-top{grid-template-columns:1fr}
   .shot{padding:18px 0 0 18px;min-height:0}
   .tool-info{padding:24px 20px}
@@ -173,9 +179,50 @@ footer{border-top:1px solid var(--line);padding:28px 0 40px;color:var(--soft);fo
     <div class="wide-shot"><img src="assets/screenshots/encrypt-decrypt.png" alt="Client list before and after running Encrypt_Data: letters become Greek symbols, numbers and totals stay the same" loading="lazy"></div>
   </article>
 
+  <article class="tool">
+    <div class="tool-top">
+      <div class="tool-info">
+        <span class="eyebrow">Tool 03 · HTML</span>
+        <h2 class="serif">Ledger Lens</h2>
+        <p>Bank statement PDFs to Excel or CSV, without uploading them anywhere. Every row is checked against the running balance, so you know the output is right before you use it.</p>
+        <ul class="feat">
+          <li>Reads columns, not guesswork</li>
+          <li>✓ / ⚠ balance check on every row</li>
+          <li>Opens password-protected PDFs</li>
+          <li>Dr/Cr, overdraft and newest-first layouts</li>
+          <li>Excel ledger with live balance formulas</li>
+          <li>Search, filter, de-duplicate, edit</li>
+        </ul>
+        <div class="cta">
+          <a class="btn primary" href="03-bank-statement-converter/">Open Ledger Lens →</a>
+          <a class="btn" href="03-bank-statement-converter/index.html" download="Ledger_Lens_Bank_Statement_Converter.html">Download for offline use</a>
+        </div>
+      </div>
+      <div class="shot"><img src="assets/screenshots/bsc-review.png" alt="Ledger Lens: a sample bank statement converted, with every row ticked by the balance check" loading="lazy"></div>
+    </div>
+    <div class="gallery">
+      <figure><img src="assets/screenshots/bsc-check.png" alt="A mis-keyed amount flagged by the balance check" loading="lazy"><figcaption>A wrong amount is flagged straight away</figcaption></figure>
+      <figure><img src="assets/screenshots/bsc-upload.png" alt="Upload screen with a built-in sample statement" loading="lazy"><figcaption>Try it with the built-in sample statement</figcaption></figure>
+      <figure><img src="assets/screenshots/bsc-dark.png" alt="Ledger Lens in dark mode" loading="lazy"><figcaption>Dark mode</figcaption></figure>
+    </div>
+  </article>
+
   <section class="soon">
     <div class="card"><span class="eyebrow">Coming soon</span><h3 class="serif">More Excel macros</h3><p>Automation for reconciliations, ledgers and reporting, with step-by-step install guides.</p></div>
     <div class="card"><span class="eyebrow">Coming soon</span><h3 class="serif">More HTML tools</h3><p>Single-file utilities you can open from your desktop, with no installs and no IT tickets.</p></div>
+  </section>
+
+  <section class="connect">
+    <div>
+      <span class="eyebrow">Connect</span>
+      <h3 class="serif">Questions, ideas, or a statement that won't convert?</h3>
+      <p>All my links in one place: Instagram, LinkedIn and email. Scan the code or tap the button.</p>
+      <div class="cta">
+        <a class="btn primary" href="https://allmylinks.com/imumehta" target="_blank" rel="noopener">allmylinks.com/imumehta →</a>
+        <a class="btn" href="mailto:umang.mehta@mail.ca.in">umang.mehta@mail.ca.in</a>
+      </div>
+    </div>
+    <img src="assets/connect-card.jpeg" alt="QR code card for Umang Mehta, allmylinks.com/imumehta">
   </section>
 
   <section class="why">
@@ -188,7 +235,7 @@ footer{border-top:1px solid var(--line);padding:28px 0 40px;color:var(--soft);fo
 <footer class="wrap">
   <div class="foot">
     <span>© 2026 CA Umang Mehta · Partner, BRS &amp; Associates, Chartered Accountants</span>
-    <span><a href="https://www.instagram.com/mehtaknowstech/">Instagram @mehtaknowstech</a></span>
+    <span><a href="https://www.instagram.com/mehtaknowstech/">Instagram @mehtaknowstech</a> · <a href="https://allmylinks.com/imumehta">allmylinks.com/imumehta</a></span>
   </div>
 </footer>
 <script>
