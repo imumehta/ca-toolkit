@@ -21,7 +21,8 @@ Built by **CA Umang Mehta**, Partner at BRS & Associates, Chartered Accountants,
 | 01 | [**PDF Suite**](01-pdf-suite/) | HTML | 15 PDF tools in one file: merge, split, protect, redact, compress, number, stamp, convert |
 | 02 | [**Encrypt / Decrypt Data**](02-encrypt-decrypt-vba/) | Excel VBA | Mask client names, PANs and other text in selected cells with one click, and restore it just as easily |
 | 03 | [**Ledger Lens: Bank Statement Converter**](03-bank-statement-converter/) | HTML | Bank statement PDF → Excel/CSV, with every row checked against the running balance |
-| 04 | More tools | | *Coming soon* |
+| 04 | [**Section Mapper**](04-section-mapper/) | HTML | Income-tax Act 1961 ↔ 2025: find where any section went, with the official text of both side by side |
+| 05 | More tools | | *Coming soon* |
 
 ---
 
@@ -104,6 +105,30 @@ Turn bank statement PDFs into a clean Excel or CSV file (Date · Narration · Ch
 **[▶ Open Ledger Lens](https://imumehta.github.io/ca-toolkit/03-bank-statement-converter/)** · or right-click → *Save link as…* on [the HTML file](03-bank-statement-converter/index.html) to keep it on your desktop. A [sample statement](03-bank-statement-converter/sample-statement.pdf) (made-up data) is included.
 
 > Always glance at the ⚠ rows and the totals against the PDF before relying on the output. Every bank formats statements differently. If one isn't read well, email **CA Umang Mehta** at [umang.mehta@mail.ca.in](mailto:umang.mehta@mail.ca.in) or [open an issue](../../issues), with account numbers and names masked.
+
+---
+
+## ⚖️ 04 · Section Mapper: Income-tax Act 1961 ↔ 2025
+
+![Section Mapper: 194J shown beside section 393 of the 2025 Act](assets/screenshots/sm-194j.png)
+
+The Income-tax Act, 2025 replaced the 1961 Act from 1 April 2026, and every familiar section number changed. Section Mapper answers "where did it go?" in one search.
+
+- **Both directions.** Type a 1961 section (`80C`, `44AB`, `194J`) to see its 2025 home, or a 2025 section (`123`) to see where it came from, down to the sub-section or Schedule table entry (e.g. `194J → 393(1) [Table: S.No. 6(iii)]`).
+- **Official text of both Acts, side by side**, as published by the Income Tax Department, as amended by **Finance Act 2026**, with amendment footnotes. Rate tables (TDS, TCS, Schedules) display as tables.
+- **Nothing hidden.** 1961 sections that were omitted or made redundant are flagged, and 2025 sections changed by Finance Act 2026 are marked, including ones that were substituted after the mapping was published (e.g. s.446).
+- Full-text search across both Acts, chapter browser, copy reference, print, dark mode. One HTML file that works offline.
+
+<table>
+<tr>
+<td width="50%"><img src="assets/screenshots/sm-393.png" alt="Section 393 with TDS table"><br><sub><b>One new section, 41 old ones.</b> s.393 with its TDS rate table and every 1961 source.</sub></td>
+<td width="50%"><img src="assets/screenshots/sm-71a.png" alt="Omitted section"><br><sub><b>Omitted and redundant sections</b> are flagged, as per the CBDT navigator.</sub></td>
+</tr>
+</table>
+
+**[▶ Open Section Mapper](https://imumehta.github.io/ca-toolkit/04-section-mapper/)** · or save [the HTML file](04-section-mapper/index.html) to use offline.
+
+> **Sources:** text of both Acts from the Income Tax Department's website (incometaxindia.gov.in), as amended by Finance Act 2026; section mapping from the CBDT section navigator (1961 → 2025). This is a reference aid, not legal advice. Verify with the Gazette text, CBDT notifications and later amendments before relying on it. Spotted an error? Email [umang.mehta@mail.ca.in](mailto:umang.mehta@mail.ca.in).
 
 ---
 
