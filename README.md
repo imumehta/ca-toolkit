@@ -22,7 +22,8 @@ Built by **CA Umang Mehta**, Partner at BRS & Associates, Chartered Accountants,
 | 02 | [**Encrypt / Decrypt Data**](02-encrypt-decrypt-vba/) | Excel VBA | Mask client names, PANs and other text in selected cells with one click, and restore it just as easily |
 | 03 | [**Ledger Lens: Bank Statement Converter**](03-bank-statement-converter/) | HTML | Bank statement PDF → Excel/CSV, with every row checked against the running balance |
 | 04 | [**Section Mapper**](04-section-mapper/) | HTML | Income-tax Act 1961 ↔ 2025: find where any section went, with the official text of both side by side |
-| 05 | More tools | | *Coming soon* |
+| 05 | [**Companies Act Analyser**](05-companies-act-analyser/) | HTML | Which Companies Act, 2013 provisions apply to a company, with reasons, references and compliance gaps |
+| 06 | More tools | | *Coming soon* |
 
 ---
 
@@ -129,6 +130,31 @@ The Income-tax Act, 2025 replaced the 1961 Act from 1 April 2026, and every fami
 **[▶ Open Section Mapper](https://imumehta.github.io/ca-toolkit/04-section-mapper/)** · or save [the HTML file](04-section-mapper/index.html) to use offline.
 
 > **Sources:** text of both Acts from the Income Tax Department's website (incometaxindia.gov.in), as amended by Finance Act 2026; section mapping from the CBDT section navigator (1961 → 2025). This is a reference aid, not legal advice. Verify with the Gazette text, CBDT notifications and later amendments before relying on it. Spotted an error? Email [umang.mehta@mail.ca.in](mailto:umang.mehta@mail.ca.in).
+
+---
+
+## 🏛️ 05 · Companies Act Analyser
+
+![Companies Act Analyser: applicability register for a sample private company](assets/screenshots/ca-register.png)
+
+Does this company need independent directors? A whole-time CS? Internal audit, secretarial audit, CSR, cost audit, XBRL? The answers turn on paid-up capital, turnover, borrowings and constitution, each read on a different date. Companies Act Analyser tests them all in one go.
+
+- **41 provisions tested** across classification (small company, deemed public, Ind AS, SMC, NFRA), board, committees and CSR, KMP, audit and auditor reporting (rotation, internal and secretarial audit, cost audit, CARO, IFC), filings and returns, and capital, loans and deposits.
+- **Every result shows its reason**: the reference, the figures that triggered it, what to do, and the date the test is read on.
+- **Compliance gaps.** Enter directors, IDs, women directors and KMP in position, and it flags what's missing, with the time limit to fill it.
+- **Current law**, as updated to 06-Oct-2026, including the ₹10 cr / ₹100 cr small-company limits (GSR 880(E), 01-12-2025). A **threshold master** lists every limit with its authority; switch to custom thresholds when a new notification lands. A separate mode shows the effect of the Corporate Laws (Amendment) Bill, 2026, which is *not* law yet.
+- Save companies in your browser, export JSON or CSV, print a working paper with prepared-by / reviewed-by boxes. One HTML file that works offline.
+
+<table>
+<tr>
+<td width="50%"><img src="assets/screenshots/ca-gaps.png" alt="Compliance gaps"><br><sub><b>Compliance gaps</b> with the rule and deadline.</sub></td>
+<td width="50%"><img src="assets/screenshots/ca-master.png" alt="Threshold master"><br><sub><b>Threshold master:</b> every limit and its authority.</sub></td>
+</tr>
+</table>
+
+**[▶ Open Companies Act Analyser](https://imumehta.github.io/ca-toolkit/05-companies-act-analyser/)** · or save [the HTML file](05-companies-act-analyser/index.html) to use offline.
+
+> A working-paper aid, not legal advice. Interpretation points (deemed public status, CSR for Section 8 companies, reach of the filing-default condition) are flagged, not decided. Validate high-stakes conclusions against the bare Act, Rules and notifications on the MCA portal. Spotted an error? Email [umang.mehta@mail.ca.in](mailto:umang.mehta@mail.ca.in).
 
 ---
 

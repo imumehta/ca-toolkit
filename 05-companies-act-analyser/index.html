@@ -1,0 +1,1098 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Companies Act Analyser · Applicability under the Companies Act, 2013</title>
+<meta name="description" content="Enter a company's constitution and figures; see which Companies Act, 2013 provisions, rules and exemptions apply, with reasons, references and compliance gaps. Free, offline, by CA Umang Mehta.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23f97316'/%3E%3Ctext x='16' y='21' font-size='12' font-family='Arial' font-weight='700' text-anchor='middle' fill='white'%3EBRS%3C/text%3E%3C/svg%3E">
+<style>
+:root{
+  --bg:#F3F5EF; --panel:#FFFFFF; --ink:#16222C; --muted:#4A5C68; --rule:#D9DFD6; --soft:#F0F3EC;
+  --pri:#172554; --pri-2:#f97316; --ok:#2F5D50; --ok-bg:#E8F2EC; --rev:#9C6B0B; --rev-bg:#F8EEDC;
+  --na:#8A9BA8; --gap:#B42318; --gap-bg:#FDECEA;
+  --navy:#172554; --orange:#f97316; --orange-d:#ea580c; --brass:#9A7B34;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
+  --serif:Georgia,"Times New Roman",serif;
+  --sans:Inter,"Segoe UI",system-ui,-apple-system,Roboto,"Helvetica Neue",Arial,sans-serif;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#0b1329; --panel:#111a33; --ink:#E7ECF5; --muted:#9AA8BF; --rule:#22304f; --soft:#0e1730;
+  --pri:#fb923c; --pri-2:#fdba74; --ok:#4ADE80; --ok-bg:#0f2a1f; --rev:#E8B45B; --rev-bg:#2b230f; --na:#64748B; --gap:#F87171; --gap-bg:#2a1214;
+}}
+:root[data-theme="dark"]{
+  --bg:#0b1329; --panel:#111a33; --ink:#E7ECF5; --muted:#9AA8BF; --rule:#22304f; --soft:#0e1730;
+  --pri:#fb923c; --pri-2:#fdba74; --ok:#4ADE80; --ok-bg:#0f2a1f; --rev:#E8B45B; --rev-bg:#2b230f; --na:#64748B; --gap:#F87171; --gap-bg:#2a1214;
+}
+*{box-sizing:border-box}
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html,body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.5 var(--sans)}
+button,input,select{font:inherit;color:inherit}
+header.top{display:flex;flex-wrap:wrap;gap:12px 20px;align-items:center;justify-content:space-between;padding:14px 22px;background:var(--panel);border-bottom:1px solid var(--rule)}
+.brand h1{font:600 21px/1.2 var(--serif);margin:0;letter-spacing:.1px}
+.brand p{margin:2px 0 0;color:var(--muted);font-size:12.5px}
+.tools{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.btn{border:1px solid var(--rule);background:var(--panel);padding:5px 10px;font-size:13px;border-radius:6px;cursor:pointer}
+.btn:hover{border-color:var(--pri)}
+.btn.pri{background:var(--pri);border-color:var(--pri);color:#fff}
+:root[data-theme="dark"] .btn.pri{color:#0d1a1c}
+.btn:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible{outline:2px solid var(--pri-2);outline-offset:2px}
+select.law{max-width:290px;padding:6px 8px;border:1px solid var(--pri);border-radius:6px;background:var(--panel)}
+main{display:grid;grid-template-columns:400px minmax(0,1fr);min-height:calc(100vh - 70px)}
+@media (max-width:980px){ main{grid-template-columns:1fr} aside.form{position:static;max-height:none;border-right:0;border-bottom:1px solid var(--rule)} }
+aside.form{position:sticky;top:0;max-height:100vh;overflow:auto;background:var(--panel);border-right:1px solid var(--rule);padding:8px 0 40px}
+details.sec{border-bottom:1px solid var(--rule)}
+details.sec>summary{cursor:pointer;list-style:none;padding:12px 20px;font:600 15px var(--serif);display:flex;justify-content:space-between}
+details.sec>summary::after{content:"+";color:var(--muted)}
+details.sec[open]>summary::after{content:"–"}
+.fields{padding:0 20px 14px;display:grid;grid-template-columns:1fr 1fr;gap:10px 12px}
+.f{display:flex;flex-direction:column;gap:3px;min-width:0}
+.f.full{grid-column:1/-1}
+.f label{font-size:12.5px;color:var(--muted)}
+.f input[type=text],.f input[type=number],.f input[type=date],.f select{border:1px solid var(--rule);background:var(--bg);border-radius:5px;padding:6px 8px;width:100%;font-variant-numeric:tabular-nums}
+.chk{grid-column:1/-1;display:flex;gap:8px;align-items:flex-start;font-size:13px}
+.chk input{margin-top:3px}
+.hint{grid-column:1/-1;font-size:12px;color:var(--muted);margin:-2px 0 2px}
+.hidden{display:none!important}
+section.out{padding:22px 28px 60px;min-width:0}
+.verdict{font:400 22px/1.4 var(--serif);max-width:62ch;margin:0 0 6px}
+.sub{color:var(--muted);margin:0 0 16px;font-size:13px}
+.bar{display:flex;height:10px;border-radius:5px;overflow:hidden;background:var(--soft);margin:6px 0 10px;max-width:640px}
+.bar span{display:block;height:100%}
+.tally{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+.tally button{border:1px solid var(--rule);background:var(--panel);border-radius:999px;padding:4px 12px;cursor:pointer;font-size:13px}
+.tally.f button[aria-pressed="true"]{border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
+.tally.f button[aria-pressed="false"]{opacity:.55}
+.tally b{font-variant-numeric:tabular-nums}
+.ctl{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:18px}
+.ctl input[type=search]{border:1px solid var(--rule);border-radius:6px;padding:6px 10px;min-width:220px;background:var(--panel)}
+.tabs{display:flex;gap:2px;border-bottom:1px solid var(--rule);margin-bottom:18px}
+.tabs button{border:0;background:none;padding:8px 14px;cursor:pointer;border-bottom:2px solid transparent;color:var(--muted)}
+.tabs button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--pri);font-weight:600}
+.warn{background:var(--rev-bg);color:var(--rev);border-radius:6px;padding:8px 12px;font-size:13px;margin-bottom:14px}
+.grp h2{font:600 17px var(--serif);margin:26px 0 8px;padding-bottom:6px;border-bottom:1px solid var(--rule)}
+.row{display:grid;grid-template-columns:150px minmax(0,1.1fr) minmax(0,1.5fr) minmax(0,1.2fr);gap:14px;padding:12px 0;border-bottom:1px dashed var(--rule)}
+@media (max-width:1200px){ .row{grid-template-columns:130px minmax(0,1fr) minmax(0,1.4fr)} .row .act{grid-column:2/-1} }
+@media (max-width:640px){ .row{grid-template-columns:1fr} .row .act{grid-column:auto} section.out{padding:16px} }
+.pill{display:inline-block;font-size:12px;font-weight:600;border-radius:4px;padding:3px 8px;white-space:nowrap}
+.st-A{background:var(--pri);color:#fff}
+:root[data-theme="dark"] .st-A{color:#0d1a1c}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]) .st-A{color:#0d1a1c} }
+.st-E{background:var(--ok-bg);color:var(--ok)}
+.st-R{background:var(--rev-bg);color:var(--rev)}
+.st-N{background:transparent;color:var(--na);border:1px solid var(--rule)}
+.t{font-weight:600}
+.ref{font-size:12px;color:var(--muted);margin-top:2px}
+.why ul{margin:0;padding-left:16px}
+.why li{margin:0 0 3px}
+.act{font-size:13.5px}
+.gap{margin-top:6px;font-size:12.5px;padding:4px 8px;border-radius:4px;background:var(--soft)}
+.gap.bad{background:var(--gap-bg);color:var(--gap);font-weight:600}
+.basis{font-size:11.5px;color:var(--muted);margin-top:6px}
+table.master{border-collapse:collapse;width:100%;font-size:13px}
+.tw{overflow-x:auto}
+table.master th,table.master td{border-bottom:1px solid var(--rule);padding:6px 8px;text-align:left;vertical-align:top}
+table.master td.num{font-variant-numeric:tabular-nums;text-align:right;white-space:nowrap}
+table.master input{width:80px;text-align:right;border:1px solid var(--rule);border-radius:4px;padding:3px 5px;background:var(--bg)}
+table.master tr.chg td{background:var(--rev-bg)}
+.notes{max-width:78ch}
+.notes h3{font:600 16px var(--serif);margin:20px 0 6px}
+.notes p,.notes li{color:var(--ink)}
+.pp{display:none}
+dialog{border:1px solid var(--rule);border-radius:8px;background:var(--panel);color:var(--ink);max-width:420px;width:92vw}
+dialog::backdrop{background:rgba(0,0,0,.35)}
+.toast{position:fixed;bottom:calc(18px + env(safe-area-inset-bottom,0px));left:50%;transform:translateX(-50%);background:var(--ink);color:var(--panel);padding:8px 14px;border-radius:6px;font-size:13px;opacity:0;transition:opacity .2s;pointer-events:none}
+.toast.on{opacity:1}
+@media (prefers-reduced-motion:reduce){.toast{transition:none}}
+@media print{
+  header.top,aside.form,.ctl,.tabs,.tally button,.noprint{display:none!important}
+  main{display:block} body{background:#fff;color:#000;font-size:11px}
+  section.out{padding:0}
+  .pp{display:block;border:1px solid #000;padding:8px 10px;margin-bottom:10px}
+  .pp table{width:100%;border-collapse:collapse} .pp td{padding:2px 6px;font-size:11px}
+  .row{grid-template-columns:96px minmax(0,1fr) minmax(0,1.5fr) minmax(0,1.2fr)!important;gap:10px;break-inside:avoid;padding:6px 0}
+  .row .act{grid-column:auto!important}
+  .pill{white-space:normal;font-size:10px}
+  .verdict{font-size:16px} .bar{display:none} .act,.why,.t{font-size:10.5px} .gap{font-size:10px}
+  @page{size:A4 landscape;margin:12mm}
+  .st-A{background:#000;color:#fff;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .grp h2{break-after:avoid}
+  #tab-master,#tab-notes{display:none!important}
+}
+
+/* ---------- CA Toolkit look (navy + brass, BRS mark) ---------- */
+header.top{background:var(--navy);border-bottom:3px double var(--brass);padding:12px 20px}
+.brand{display:flex;align-items:center;gap:12px}
+.logo-mark{width:38px;height:38px;flex:none;border-radius:9px;background:linear-gradient(135deg,var(--orange),var(--orange-d));display:grid;place-items:center;color:#fff;font-weight:800;font-size:13px;box-shadow:0 4px 12px rgba(249,115,22,.4)}
+.brand h1{font:800 17px/1.2 var(--sans);color:#fff;letter-spacing:0}
+.brand p{margin:1px 0 0;font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:#94a3b8}
+header.top .btn{background:transparent;border-color:#33466e;color:#cbd5e1;font-size:12px}
+header.top .btn:hover{border-color:var(--orange);color:#fff}
+header.top .btn.pri{background:var(--orange);border-color:var(--orange);color:#fff}
+header.top select.law,header.top select.btn{background:#0e1a3d;color:#e2e8f0;border-color:#33466e}
+header.top select option{background:#fff;color:#16222C}
+header.top label[for=lawMode]{color:#94a3b8!important}
+.sbadge{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:10.5px;color:#bbf7d0;border:1px solid #1f5135;background:#0f2a1f;border-radius:20px;padding:4px 10px}
+.sbadge::before{content:"";width:7px;height:7px;border-radius:50%;background:#22c55e;box-shadow:0 0 0 3px rgba(34,197,94,.2)}
+details.sec>summary,.grp h2,.notes h3{font-family:var(--sans);font-weight:700}
+details.sec>summary{font-size:14px}
+.grp h2{font-size:15px;color:var(--pri)}
+.grp h2::before{content:"";display:inline-block;width:4px;height:14px;background:var(--orange);border-radius:2px;margin-right:8px;vertical-align:-1px}
+.tabs button[aria-selected="true"]{border-bottom-color:var(--orange)}
+.btn.pri{background:var(--navy);border-color:var(--navy)}
+#splash{position:fixed;inset:0;z-index:999;background:linear-gradient(140deg,#0b1329,#172554 60%,#1e3a8a);display:flex;align-items:center;justify-content:center;transition:opacity .45s}
+#splash.out{opacity:0;pointer-events:none}
+.sp-card{text-align:center;color:#e2e8f0;padding:24px;max-width:460px}
+.sp-logo{width:68px;height:68px;margin:0 auto 18px;border-radius:16px;background:linear-gradient(135deg,var(--orange),var(--orange-d));display:grid;place-items:center;font-weight:800;font-size:20px;color:#fff;box-shadow:0 14px 36px rgba(249,115,22,.45)}
+.sp-card h1{margin:0;font:800 28px/1.2 var(--sans);color:#fff}
+.sp-sub{margin:4px 0 2px;color:#93c5fd;font-size:13.5px}
+.sp-by{margin:0 0 26px;color:#94a3b8;font-size:12px}.sp-by b{color:var(--orange)}
+.sp-bar{height:4px;border-radius:4px;background:rgba(255,255,255,.12);overflow:hidden;width:300px;max-width:100%;margin:0 auto}
+.sp-bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--orange),#fdba74);transition:width .3s}
+.sp-checks{list-style:none;padding:0;margin:16px auto 0;width:260px;max-width:100%;text-align:left;font-size:12px;color:#94a3b8}
+.sp-checks li{padding:3px 0;display:flex;justify-content:space-between}
+.sp-checks li::after{content:"…";color:#64748b}
+.sp-checks li.ok::after{content:"ready";color:#4ade80}
+footer.bottom{background:var(--navy);border-top:3px double var(--brass);color:#94a3b8}
+.ft{padding:12px 20px;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-size:11.5px}
+.ft b{color:#e2e8f0;font-weight:600}.ft .brass{color:#d4b264}.ft a{color:#cbd5e1}
+.modal-bg{position:fixed;inset:0;background:rgba(8,14,30,.55);backdrop-filter:blur(3px);z-index:200;display:flex;align-items:center;justify-content:center;padding:16px}
+.modal-bg[hidden]{display:none}
+.modal{background:var(--panel);border-radius:10px;max-width:600px;width:100%;max-height:88vh;overflow-y:auto;padding:24px;position:relative;border:1px solid var(--rule)}
+.modal h3{margin:0 0 2px;font:700 19px var(--sans)}
+.modal .eyebrow{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.modal table{width:100%;border-collapse:collapse;font-size:12.5px;margin-top:10px}
+.modal td{padding:6px;border-bottom:1px solid var(--rule);vertical-align:top}
+.modal td:first-child{color:var(--muted);width:34%}
+.modal .x{position:absolute;top:12px;right:12px}
+a{color:var(--orange-d)}
+@media (max-width:820px){ .sbadge{display:none} header.top .tools{width:100%} }
+@media print{ #splash,footer.bottom,.modal-bg{display:none!important} }
+@media (prefers-reduced-motion:reduce){ #splash,.sp-bar i{transition:none} }
+</style>
+</head>
+<body>
+<div id="splash">
+  <div class="sp-card">
+    <div class="sp-logo">BRS</div>
+    <h1>Companies Act Analyser</h1>
+    <p class="sp-sub">Applicability under the Companies Act, 2013 &amp; Rules</p>
+    <p class="sp-by">Designed &amp; Developed by <b>CA Umang Mehta</b>, Partner – BRS &amp; Associates</p>
+    <div class="sp-bar"><i id="spFill"></i></div>
+    <ul class="sp-checks" id="spChecks">
+      <li>Applicability engine (41 provisions)</li>
+      <li>Threshold master (law in force)</li>
+      <li>Saved companies (this browser)</li>
+    </ul>
+  </div>
+</div>
+<header class="top">
+  <div class="brand">
+    <div class="logo-mark">BRS</div>
+    <div><h1>Companies Act Analyser</h1><p>Companies Act, 2013 applicability · ₹ crore · BRS &amp; Associates</p></div>
+  </div>
+  <div class="tools">
+    <span class="sbadge noprint" title="Everything runs inside this browser tab">Secure Offline Sandbox</span>
+    <label class="noprint" for="lawMode" style="font-size:12.5px;color:var(--muted)">Law basis</label>
+    <select id="lawMode" class="law">
+      <option value="enacted">In force (as updated to 06-Oct-2026)</option>
+      <option value="bill">Corporate Laws (Amendment) Bill, 2026 – proposed</option>
+      <option value="custom">Custom thresholds</option>
+    </select>
+    <select id="profileList" class="btn" aria-label="Saved companies"><option value="">Saved companies…</option></select>
+    <button class="btn" id="bSave">Save</button>
+    <button class="btn" id="bDel">Delete</button>
+    <button class="btn" id="bSample">Sample</button>
+    <button class="btn" id="bNew">Clear</button>
+    <button class="btn" id="bJson">Export JSON</button>
+    <label class="btn" for="fImport" style="margin:0">Import JSON</label><input type="file" id="fImport" accept=".json" class="hidden">
+    <button class="btn" id="bCsv">Export CSV</button>
+    <button class="btn pri" id="bPrint">Print / PDF</button>
+    <button class="btn" id="bAbout" type="button">About</button>
+    <button class="btn" id="bTheme" aria-label="Toggle theme" title="Light / dark theme">◐</button>
+  </div>
+</header>
+<main>
+  <aside class="form" id="form" aria-label="Company inputs"></aside>
+  <section class="out">
+    <div class="pp" id="pp"></div>
+    <p class="verdict" id="verdict">Enter company details to begin.</p>
+    <p class="sub" id="sub"></p>
+    <div class="bar" id="bar" aria-hidden="true"></div>
+    <div class="tally" id="tally"></div>
+    <div class="tabs" role="tablist">
+      <button role="tab" aria-selected="true" data-tab="reg">Applicability register</button>
+      <button role="tab" aria-selected="false" data-tab="master">Threshold master</button>
+      <button role="tab" aria-selected="false" data-tab="notes">Basis, sources &amp; limits</button>
+    </div>
+    <div id="tab-reg">
+      <div class="ctl">
+        <input type="search" id="q" placeholder="Search provision, section or rule">
+        <label class="chk" style="grid-column:auto"><input type="checkbox" id="gapOnly"> Show only compliance gaps</label>
+      </div>
+      <div id="warn"></div>
+      <div id="reg"></div>
+    </div>
+    <div id="tab-master" class="hidden">
+      <p class="sub">Single source of truth for every threshold the engine uses. Switch the law basis to <b>Custom thresholds</b> to edit — useful when a new notification lands before this tool is updated. Highlighted rows differ from the law in force.</p>
+      <div class="ctl"><button class="btn" id="bResetP">Reset custom to law in force</button></div>
+      <div class="tw"><table class="master" id="master"></table></div>
+    </div>
+    <div id="tab-notes" class="hidden notes"></div>
+  </section>
+</main>
+<footer class="bottom noprint">
+  <div class="ft">
+    <span>Designed &amp; developed by <b>CA Umang Mehta</b> · <span class="brass">Partner, BRS &amp; Associates</span> · <a href="mailto:umang.mehta@mail.ca.in">umang.mehta@mail.ca.in</a> · <a href="https://allmylinks.com/imumehta" target="_blank" rel="noopener">allmylinks.com/imumehta</a></span>
+    <span>Companies Act, 2013 &amp; Rules, as updated to 06-Oct-2026 · Runs in your browser · <a href="https://imumehta.github.io/ca-toolkit/" target="_blank" rel="noopener">More free tools</a></span>
+  </div>
+</footer>
+<div class="modal-bg" id="about" hidden>
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="aboutT">
+    <button class="btn x" id="aboutClose" type="button">Close ✕</button>
+    <span class="eyebrow">About</span>
+    <h3 id="aboutT">Companies Act Analyser</h3>
+    <p style="margin:2px 0 0;color:var(--muted);font-size:12.5px">Applicability of the Companies Act, 2013 and Rules · single self-contained file</p>
+    <table>
+      <tr><td>Designed &amp; developed by</td><td><b>CA Umang Mehta</b><br>Partner – BRS &amp; Associates, Chartered Accountants, Jamnagar</td></tr>
+      <tr><td>What it does</td><td>Tests 41 provisions (board, committees, CSR, KMP, audit, reporting, deposits, demat and more) against the company's constitution and figures, and shows the reason, the reference and any compliance gap.</td></tr>
+      <tr><td>Law basis</td><td>Companies Act, 2013 and Rules as updated to 06-Oct-2026, including the ₹10 cr / ₹100 cr small-company limits (GSR 880(E), 01-12-2025). "Bill" mode models the Corporate Laws (Amendment) Bill, 2026, which is <b>not law</b>.</td></tr>
+      <tr><td>Your data</td><td>Stays in this browser. Saved companies use the browser's own storage; nothing is uploaded.</td></tr>
+      <tr><td>Use</td><td>A working-paper aid. Validate high-stakes conclusions against the bare Act, Rules and notifications on the MCA portal.</td></tr>
+      <tr><td>Found an error?</td><td>Email <a href="mailto:umang.mehta@mail.ca.in?subject=Companies%20Act%20Analyser">umang.mehta@mail.ca.in</a> · <a href="https://allmylinks.com/imumehta" target="_blank" rel="noopener">allmylinks.com/imumehta</a></td></tr>
+    </table>
+  </div>
+</div>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+/* ===== Companies Act 2013 applicability engine (pure, no DOM) ===== */
+const PARAMS_ENACTED = {
+  small_pu:10, small_to:100,
+  csr_nw:500, csr_to:1000, csr_np:5, csr_cmte:0.5, csr_ia:10,
+  id_pu:10, id_to:100, id_ldd:50,
+  wd_pu:100, wd_to:300,
+  vm_bank:50,
+  kmp_pu:10, cs8a_pu:10,
+  rot_pub_pu:10, rot_pvt_pu:50, rot_borrow:50,
+  ia_pub_pu:50, ia_to:200, ia_bank:100, ia_dep:25,
+  sa_pu:50, sa_to:250, sa_bank:100,
+  mgt8_pu:10, mgt8_to:50,
+  xbrl_pu:5, xbrl_to:100,
+  cost_rec:35, costA_to:50, costA_prod:25, costB_to:100, costB_prod:35, cost_export:75,
+  caro_pur:1, caro_bor:1, caro_rev:10,
+  ifc_to:50, ifc_bor:25,
+  indas_nw:250,
+  smc_to:250, smc_bor:50,
+  nfra_pu:500, nfra_to:1000, nfra_ldd:500,
+  dep_nw:100, dep_to:500,
+  s185_bor:50,
+  src_holders:1000
+};
+const PARAMS_BILL_DELTA = { csr_np:10, csr_cmte:1 };
+
+const PARAM_META = [
+  ['small_pu','Small company – paid-up capital ≤','s.2(85); Rule 2(1)(t), Spec. of Definitions Details Rules (GSR 880(E), 01-12-2025)','cr'],
+  ['small_to','Small company – turnover (preceding FY) ≤','s.2(85); Rule 2(1)(t)','cr'],
+  ['csr_nw','CSR – net worth ≥','s.135(1)','cr'],
+  ['csr_to','CSR – turnover ≥','s.135(1)','cr'],
+  ['csr_np','CSR – net profit (preceding FY) ≥','s.135(1)','cr'],
+  ['csr_cmte','CSR committee not needed if obligation ≤','s.135(9)','cr'],
+  ['csr_ia','CSR impact assessment – avg obligation (3 FYs) ≥','Rule 8(3), CSR Policy Rules','cr'],
+  ['id_pu','Independent directors / AC / NRC – paid-up ≥','Rule 4 ADQ Rules; Rule 6 MBP Rules','cr'],
+  ['id_to','Independent directors / AC / NRC – turnover ≥','Rule 4 ADQ Rules; Rule 6 MBP Rules','cr'],
+  ['id_ldd','Independent directors / AC / NRC – loans+debentures+deposits >','Rule 4 ADQ Rules; Rule 6 MBP Rules','cr'],
+  ['wd_pu','Woman director – paid-up ≥','Rule 3 ADQ Rules','cr'],
+  ['wd_to','Woman director – turnover ≥','Rule 3 ADQ Rules','cr'],
+  ['vm_bank','Vigil mechanism – bank/PFI borrowings >','Rule 7 MBP Rules','cr'],
+  ['kmp_pu','Whole-time KMP (public) – paid-up ≥','Rule 8 Managerial Personnel Rules','cr'],
+  ['cs8a_pu','Whole-time CS (others) – paid-up ≥','Rule 8A Managerial Personnel Rules','cr'],
+  ['rot_pub_pu','Auditor rotation – unlisted public paid-up ≥','Rule 5 Audit & Auditors Rules','cr'],
+  ['rot_pvt_pu','Auditor rotation – private paid-up ≥','Rule 5 Audit & Auditors Rules','cr'],
+  ['rot_borrow','Auditor rotation – public borrowings/deposits ≥','Rule 5 Audit & Auditors Rules','cr'],
+  ['ia_pub_pu','Internal audit – unlisted public paid-up ≥','Rule 13 Accounts Rules','cr'],
+  ['ia_to','Internal audit – turnover ≥','Rule 13 Accounts Rules','cr'],
+  ['ia_bank','Internal audit – bank/PFI borrowings >','Rule 13 Accounts Rules','cr'],
+  ['ia_dep','Internal audit – deposits (unlisted public) ≥','Rule 13 Accounts Rules','cr'],
+  ['sa_pu','Secretarial audit – public paid-up ≥','Rule 9 Managerial Personnel Rules','cr'],
+  ['sa_to','Secretarial audit – public turnover ≥','Rule 9 Managerial Personnel Rules','cr'],
+  ['sa_bank','Secretarial audit – any company bank/PFI borrowings ≥','Rule 9(1)(c)','cr'],
+  ['mgt8_pu','MGT-8 certification – paid-up ≥','Rule 11(2) Mgmt & Admin Rules','cr'],
+  ['mgt8_to','MGT-8 certification – turnover ≥','Rule 11(2) Mgmt & Admin Rules','cr'],
+  ['xbrl_pu','XBRL – paid-up ≥','Rule 3 XBRL Rules','cr'],
+  ['xbrl_to','XBRL – turnover ≥','Rule 3 XBRL Rules','cr'],
+  ['cost_rec','Cost records – overall turnover ≥','Rule 3 Cost Records & Audit Rules','cr'],
+  ['costA_to','Cost audit (regulated) – overall turnover ≥','Rule 4(1)','cr'],
+  ['costA_prod','Cost audit (regulated) – covered products ≥','Rule 4(1)','cr'],
+  ['costB_to','Cost audit (non-regulated) – overall turnover ≥','Rule 4(2)','cr'],
+  ['costB_prod','Cost audit (non-regulated) – covered products ≥','Rule 4(2)','cr'],
+  ['cost_export','Cost audit exempt – export FX revenue >','Rule 4(3)(i)','%'],
+  ['caro_pur','CARO exempt (pvt) – paid-up + reserves ≤','CARO 2020 para 1(2)(v)','cr'],
+  ['caro_bor','CARO exempt (pvt) – bank/FI borrowings ≤','CARO 2020 para 1(2)(v)','cr'],
+  ['caro_rev','CARO exempt (pvt) – total revenue ≤','CARO 2020 para 1(2)(v)','cr'],
+  ['ifc_to','IFC reporting exempt (pvt) – turnover <','GSR 583(E) 13-06-2017','cr'],
+  ['ifc_bor','IFC reporting exempt (pvt) – borrowings <','GSR 583(E) 13-06-2017','cr'],
+  ['indas_nw','Ind AS (unlisted) – net worth ≥','Rule 4(1)(iii) Ind AS Rules','cr'],
+  ['smc_to','SMC (AS Rules 2021) – turnover ≤','Rule 2(1)(f) Companies (AS) Rules 2021','cr'],
+  ['smc_bor','SMC – borrowings incl. deposits ≤','Rule 2(1)(f)','cr'],
+  ['nfra_pu','NFRA – unlisted public paid-up ≥','Rule 3 NFRA Rules 2018','cr'],
+  ['nfra_to','NFRA – unlisted public turnover ≥','Rule 3 NFRA Rules 2018','cr'],
+  ['nfra_ldd','NFRA – loans+debentures+deposits ≥','Rule 3 NFRA Rules 2018','cr'],
+  ['dep_nw','Eligible company (public deposits) – net worth ≥','s.76; Rule 2(1)(e) Deposits Rules','cr'],
+  ['dep_to','Eligible company (public deposits) – turnover ≥','s.76; Rule 2(1)(e) Deposits Rules','cr'],
+  ['s185_bor','s.185 pvt exemption – borrowing cap (lower of 2× paid-up or)','GSR 464(E) 05-06-2015','cr'],
+  ['src_holders','Stakeholders Relationship Committee – security holders >','s.178(5)','nos']
+];
+
+const GROUPS = [
+  ['cls','Classification & framework'],
+  ['brd','Board composition & meetings'],
+  ['cmt','Committees, vigil mechanism & CSR'],
+  ['kmp','Key managerial personnel & remuneration'],
+  ['aud','Audit & auditor reporting'],
+  ['rpt','Financial statements, returns & filings'],
+  ['fin','Capital, borrowings, loans & deposits'],
+  ['oth','Other reliefs & procedures']
+];
+
+function n(v){ return (v===null||v===undefined||v==='')?0:Number(v); }
+function cr(v){ const x=n(v); return '₹'+(Math.round(x*100)/100).toLocaleString('en-IN')+' cr'; }
+
+function derive(c, P){
+  const t=c.type;
+  const d={};
+  d.listed = t==='listed';
+  d.s8 = t==='s8pvt'||t==='s8pub';
+  d.opc = t==='opc';
+  d.legalPrivate = t==='private'||t==='opc'||t==='s8pvt';
+  d.legalPublic = !d.legalPrivate;
+  d.deemedPublic = d.legalPrivate && !d.opc && c.isSubsidiary && c.parentPublic;
+  d.publicForGov = d.legalPublic || (d.deemedPublic && c.deemedView);
+  d.privateForGov = !d.publicForGov;
+  d.special = ['bank','insurance','electricity'].includes(c.sector);
+  d.smallFin = n(c.paidUp)<=P.small_pu && n(c.turnover)<=P.small_to;
+  d.smallBlock = [];
+  if(d.legalPublic) d.smallBlock.push('it is a public company');
+  if(c.isHolding) d.smallBlock.push('it is a holding company');
+  if(c.isSubsidiary) d.smallBlock.push('it is a subsidiary company');
+  if(d.s8) d.smallBlock.push('it is registered u/s 8');
+  if(d.special) d.smallBlock.push('it is governed by a special Act');
+  d.small = d.smallFin && d.smallBlock.length===0;
+  d.unlistedPublic = d.publicForGov && !d.listed;
+  d.idExemptClass = c.isJV||c.isWOS||c.isDormant;
+  d.idTrig = [];
+  if(n(c.paidUp)>=P.id_pu) d.idTrig.push(`paid-up ${cr(c.paidUp)} ≥ ₹${P.id_pu} cr`);
+  if(n(c.turnover)>=P.id_to) d.idTrig.push(`turnover ${cr(c.turnover)} ≥ ₹${P.id_to} cr`);
+  if(n(c.aggLDD)>P.id_ldd) d.idTrig.push(`loans+debentures+deposits ${cr(c.aggLDD)} > ₹${P.id_ldd} cr`);
+  const nps=[c.np1,c.np2,c.np3].filter(v=>v!==null&&v!==undefined&&v!=='').map(Number);
+  d.avgNP = nps.length? nps.reduce((a,b)=>a+b,0)/nps.length : 0;
+  d.npYears = nps.length;
+  d.csrObl = Math.max(0, d.avgNP*0.02);
+  d.startupPvt = c.isStartup && d.legalPrivate;
+  return d;
+}
+
+function evaluate(c, P){
+  const d=derive(c,P);
+  const R=[];
+  const add=(o)=>R.push(o);
+  const nd=c.nDirectors, nid=c.nID, nw=c.nWomen;
+  const has=(v)=>v!==null&&v!==undefined&&v!=='';
+  const defNote = 'Exemption is conditional on no default in filing financial statements (s.137) / annual return (s.92) – GSR 583(E)/584(E), 13-06-2017.';
+
+  /* ---------- CLASSIFICATION ---------- */
+  {
+    const why=[`Paid-up ${cr(c.paidUp)} vs limit ₹${P.small_pu} cr; turnover (preceding FY) ${cr(c.turnover)} vs limit ₹${P.small_to} cr.`];
+    let st, label, act;
+    if(d.small){ st='A'; label='Qualifies'; why.push('Both financial limits met and no excluded category applies.'); act='Small-company reliefs flow through: MGT-7A, abridged Board report, no CARO/cash flow/IFC/auditor rotation, 2 board meetings, lower penalties (s.446B).'; }
+    else { st='N'; label='Does not qualify';
+      if(!d.smallFin) why.push('Financial limit exceeded.');
+      if(d.smallBlock.length) why.push('Excluded because '+d.smallBlock.join('; ')+' (proviso to s.2(85)).');
+      act='Apply full private/public company compliance set.'; }
+    if(c.lawMode==='bill') why.push('Bill 2026 raises only the ceiling in s.2(85) to ₹20 cr paid-up / ₹200 cr turnover; the operative limits stay ₹10 cr / ₹100 cr until new Rules are notified. Not in force.');
+    add({id:'small',grp:'cls',title:'Small company status',ref:'s.2(85); Rule 2(1)(t) Companies (Specification of Definitions Details) Rules, 2014 as substituted by GSR 880(E) dt 01-12-2025',st,label,why,act,basis:'Paid-up: current; turnover: P&L of immediately preceding FY'});
+  }
+  {
+    let st,label,why=[],act;
+    if(d.opc){ st='N'; label='Not applicable'; why=['OPC cannot be a subsidiary-driven deemed public company.']; act='—'; }
+    else if(d.deemedPublic){ st='R'; label='Deemed public'; why=['Private company that is a subsidiary of a public company – proviso to s.2(71) deems it a public company.', c.deemedView? 'Tool is treating it as PUBLIC for governance tests (ICSI/MCA practice view).' : 'Tool is treating it as PRIVATE (toggle off).', 'Contrary view: deeming is for limited purposes; private-company exemptions (GSR 464(E)) exclude such subsidiaries in several items. Document the position taken.'];
+      act='Confirm AoA, check each governance item with the public-company lens; maintain a position memo.'; }
+    else { st='N'; label='No'; why=[d.legalPublic?'Already a public company.':'Not a subsidiary of a public company.']; act='—'; }
+    add({id:'deemed',grp:'cls',title:'Deemed public company',ref:'Proviso to s.2(71)',st,label,why,act,basis:'Status on date of analysis'});
+  }
+  {
+    let st,label,why=[],act='';
+    if(['bank','insurance','nbfc','hfc'].includes(c.sector)){ st='R'; label='Separate roadmap'; why=['Banks, insurers, NBFCs and HFCs follow sector-specific Ind AS roadmaps (Rule 4(1)(iv)/(v) Ind AS Rules; RBI/IRDAI directions).']; act='Apply the sector roadmap.'; }
+    else if(d.listed && c.listingType==='sme'){ st='E'; label='Exempt'; why=['Listed on SME exchange – excluded from mandatory Ind AS (Rule 4(2)(b)).']; act='Continue under Companies (AS) Rules, 2021 unless voluntarily adopted (irrevocable).'; }
+    else if(d.listed){ st='A'; label='Applicable'; why=['Equity/debt listed (or in process) on a stock exchange in India/outside – Phase II, Rule 4(1)(iii).']; act='Prepare standalone & consolidated FS under Ind AS.'; }
+    else if(n(c.netWorth)>=P.indas_nw){ st='A'; label='Applicable'; why=[`Net worth ${cr(c.netWorth)} ≥ ₹${P.indas_nw} cr (Rule 4(1)(iii)(b)).`]; act='Prepare FS under Ind AS; holding/subsidiaries/JVs/associates also covered.'; }
+    else if(c.groupIndAS){ st='A'; label='Applicable'; why=['Holding, subsidiary, JV or associate of a company covered by Ind AS (Rule 4(1)(iii)(c)/(d)).']; act='Align with group Ind AS reporting.'; }
+    else { st='N'; label='Not mandatory'; why=[`Not listed; net worth ${cr(c.netWorth)} < ₹${P.indas_nw} cr; no Ind AS group link.`]; act='Companies (AS) Rules, 2021 apply. Voluntary adoption is irrevocable – evaluate before switching.'; }
+    why.push('Net worth is per standalone FS as at end of the relevant accounting period (Rule 4(2)(a)); once Ind AS applies it continues even if criteria cease (Rule 4(2)(c)).');
+    add({id:'indas',grp:'cls',title:'Ind AS applicability',ref:'s.133; Companies (Indian Accounting Standards) Rules, 2015, Rule 4',st,label,why,act,basis:'Net worth as per audited standalone FS'});
+  }
+  {
+    let st,label,why=[],act;
+    const indasApp = R.find(r=>r.id==='indas').st==='A';
+    if(indasApp){ st='N'; label='Not relevant'; why=['Company is on Ind AS.']; act='—'; }
+    else {
+      const fails=[];
+      if(d.listed) fails.push('securities listed / in process of listing');
+      if(['bank','insurance'].includes(c.sector)) fails.push('bank / insurer');
+      if(n(c.turnover)>P.smc_to) fails.push(`turnover ${cr(c.turnover)} > ₹${P.smc_to} cr`);
+      if(n(c.totalBorrowMaxPY)>P.smc_bor) fails.push(`borrowings incl. deposits ${cr(c.totalBorrowMaxPY)} > ₹${P.smc_bor} cr at some time in preceding year`);
+      if(c.parentNonSMC) fails.push('holding/subsidiary of a non-SMC');
+      if(fails.length){ st='N'; label='Non-SMC'; why=['Fails: '+fails.join('; ')+'.']; act='All AS apply in full; no SMC relaxations (AS 3, 15, 17, 19, 20, 28, 29 etc.).'; }
+      else { st='A'; label='SMC'; why=['Meets all SMC conditions.']; act='SMC relaxations available; disclose SMC status in notes. Status reckoned at end of preceding accounting year.'; }
+    }
+    add({id:'smc',grp:'cls',title:'Small & Medium-sized Company (SMC) under AS',ref:'Companies (Accounting Standards) Rules, 2021, Rule 2(1)(f) & Annexure',st,label,why,act,basis:'Immediately preceding accounting year'});
+  }
+  {
+    let st,label,why=[],act;
+    const trig=[];
+    if(d.listed) trig.push('listed company');
+    if(['bank','insurance','electricity'].includes(c.sector)) trig.push('insurance/banking/electricity company');
+    if(d.unlistedPublic){
+      if(n(c.paidUp)>=P.nfra_pu) trig.push(`paid-up ≥ ₹${P.nfra_pu} cr`);
+      if(n(c.turnover)>=P.nfra_to) trig.push(`turnover ≥ ₹${P.nfra_to} cr`);
+      if(n(c.aggLDD)>=P.nfra_ldd) trig.push(`loans+debentures+deposits ≥ ₹${P.nfra_ldd} cr`);
+    }
+    if(trig.length){ st='A'; label='Applicable'; why=['Covered: '+trig.join('; ')+'.']; act='Auditor must be NFRA-compliant; Form NFRA-2 annual return by auditor; audit quality reviews by NFRA.'; }
+    else { st='N'; label='Not applicable'; why=['Not within Rule 3 classes (private companies outside unless referred by Central Government).']; act='ICAI QRB/peer review regime continues.'; }
+    why.push('Unlisted public thresholds reckoned as on 31 March of immediately preceding FY. Bill 2026 proposes wider NFRA powers – monitor.');
+    add({id:'nfra',grp:'cls',title:'NFRA jurisdiction over audit',ref:'s.132; National Financial Reporting Authority Rules, 2018, Rule 3',st,label,why,act,basis:'31 March of preceding FY'});
+  }
+
+  /* ---------- BOARD ---------- */
+  {
+    const min = d.opc?1:(d.publicForGov?3:2);
+    let why=[`Minimum ${min} director(s) for ${d.opc?'OPC':d.legalPublic?'public company':d.publicForGov?'deemed public company':'private company'}; maximum 15 (more by special resolution).`];
+    let gap='';
+    if(has(nd)){ if(n(nd)<min) gap=`Gap: ${nd} director(s) on board, need ${min}.`; else if(n(nd)>15) gap='Above 15 – confirm special resolution exists.'; else gap='Complies on composition input.'; }
+    add({id:'mindir',grp:'brd',title:'Minimum / maximum directors',ref:'s.149(1)(a)',st:'A',label:'Applicable',why,act:'Maintain board strength at all times; casual vacancy u/s 161(4).',gap,basis:'At all times'});
+  }
+  {
+    let gap='';
+    if(c.residentDir==='no') gap='Gap: no director stayed in India ≥182 days in the FY.';
+    else if(c.residentDir==='yes') gap='Complies on input.';
+    add({id:'resdir',grp:'brd',title:'Resident director',ref:'s.149(3)',st:'A',label:'Applicable',why:['Every company must have at least one director who stayed in India for ≥182 days during the financial year.'],act:'Track director stay days; for newly incorporated companies, proportionate test applies.',gap,basis:'Financial year'});
+  }
+  {
+    let st,label,why=[],act,gap='';
+    let req=0;
+    if(d.listed){ st='A'; label='Applicable'; req=has(nd)?Math.ceil(n(nd)/3):0;
+      why=['Listed company – at least one-third of total directors (fraction rounded up) must be independent (s.149(4)).','SEBI LODR Reg. 17 may require half where chairperson is executive/promoter-related.'];
+      act='Maintain ID ratio; register IDs in IICA databank (Rule 6); separate meeting of IDs (Sch. IV).'; }
+    else if(d.s8){ st=c.filingDefault?'R':'E'; label=c.filingDefault?'Check exemption':'Exempt'; why=['s.149(4) to (13) and s.150 do not apply to Section 8 companies (GSR 466(E) dt 05-06-2015).']; if(c.filingDefault) why.push(defNote); act=c.filingDefault?'Cure filing defaults to secure the exemption.':'No ID required.'; }
+    else if(!d.publicForGov){ st='N'; label='Not applicable'; why=['Private company – s.149(4)/Rule 4 apply only to listed and prescribed public companies.']; act='—'; }
+    else if(d.idTrig.length){
+      if(d.idExemptClass){ st='E'; label='Exempt'; why=['Thresholds met ('+d.idTrig.join('; ')+') but unlisted public company is a '+[c.isJV&&'joint venture',c.isWOS&&'wholly owned subsidiary',c.isDormant&&'dormant company (s.455)'].filter(Boolean).join(' / ')+' – excluded by proviso to Rule 4(1).']; act='Retain exemption evidence (JV agreement / shareholding / MSC-3).'; }
+      else { st='A'; label='Applicable'; req=2; why=['Unlisted public company: '+d.idTrig.join('; ')+'.','At least 2 independent directors required (Rule 4(1)).']; act='Appoint 2 IDs (databank registration + proficiency test, Rule 6); Form DIR-12.'; }
+    } else { st='N'; label='Not applicable'; why=['Unlisted public company below all Rule 4 thresholds.']; act='Monitor thresholds annually.'; }
+    if(st==='A' && has(nid) && req){ gap = n(nid)>=req ? `Complies: ${nid} ID(s) vs ${req} required.` : `Gap: ${nid} ID(s) vs ${req} required – fill by the next board meeting or within 3 months, whichever is later (${d.listed?'Reg. 25(6) LODR':'further proviso to Rule 4(1)'}).`; }
+    why.push('Thresholds reckoned as on last date of latest audited financial statements (Explanation to Rule 4).');
+    if(!d.listed && d.publicForGov) why.push('If the company has not met any Rule 4(1) condition for three consecutive years, the requirement stops until a condition is met again (proviso to Rule 4(1)) – not tested here.');
+    add({id:'id',grp:'brd',title:'Independent directors',ref:'s.149(4)-(13); Rule 4, Companies (Appointment & Qualification of Directors) Rules, 2014',st,label,why,act,gap,basis:'Latest audited FS'});
+  }
+  {
+    let st,label,why=[],act,gap='';
+    if(d.listed){ st='A'; label='Applicable'; why=['Every listed company (Rule 3(i)).']; }
+    else if(d.publicForGov && (n(c.paidUp)>=P.wd_pu || n(c.turnover)>=P.wd_to)){ st='A'; label='Applicable'; why=[`Public company with paid-up ${cr(c.paidUp)} / turnover ${cr(c.turnover)} – meets ₹${P.wd_pu} cr / ₹${P.wd_to} cr test (Rule 3(ii)).`]; if(d.s8) why.push('Section 8 exemption covers s.149(1) and its first proviso only; woman-director proviso is not exempted.'); }
+    else { st='N'; label='Not applicable'; why=[d.publicForGov?`Below ₹${P.wd_pu} cr paid-up and ₹${P.wd_to} cr turnover.`:'Private company – not covered.']; }
+    act = st==='A'?'At least one woman director; intermittent vacancy to be filled by next board meeting or 3 months, whichever later.':'—';
+    if(st==='A'&&has(nw)) gap = n(nw)>=1?'Complies on input.':'Gap: no woman director.';
+    why.push('Reckoned on latest audited FS.');
+    add({id:'wd',grp:'brd',title:'Woman director',ref:'Second proviso to s.149(1); Rule 3, ADQ Rules',st,label,why,act,gap,basis:'Latest audited FS'});
+  }
+  {
+    let st,label,why,act;
+    if(d.publicForGov){ st='A'; label='Applicable'; why=['Public company: at least two-thirds of total directors (excluding IDs) retire by rotation; one-third of them retire at every AGM (s.152(6)).']; if(d.s8) why.push('For Section 8 public companies, check AoA and the GSR 466(E) modifications before concluding.'); act='Track rotation in AGM notice.'; }
+    else { st='N'; label='Not applicable'; why=['Private company – rotation only if Articles provide.']; act='Check AoA.'; }
+    add({id:'rot',grp:'brd',title:'Retirement of directors by rotation',ref:'s.152(6)',st,label,why,act,basis:'Each AGM'});
+  }
+  if(d.listed){
+    add({id:'ssd',grp:'brd',title:'Small shareholders’ director',ref:'s.151; Rule 7 ADQ Rules',st:'R',label:'On trigger',why:['Listed company may elect, and must elect on notice by 1,000 small shareholders or 1/10th of them, whichever lower.'],act:'Keep a process to handle such notice.',basis:'On notice'});
+  }
+  {
+    let st='A',label='Applicable',why,act;
+    if(d.opc && has(nd) && n(nd)===1){ label='Not applicable'; st='N'; why=['OPC with only one director – s.173 does not apply (proviso to s.173(5)).']; act='Record decisions in minutes book signed by the sole director.'; }
+    else if(d.opc||d.small||c.isDormant||d.startupPvt){ why=['OPC / small company / dormant company / start-up private company: at least one meeting in each half of a calendar year with gap ≥90 days (s.173(5)).']; act='Minimum 2 meetings a year.'; if(d.startupPvt&&!d.opc&&!d.small) why.push(defNote); }
+    else if(d.s8){ why=['Section 8 company: at least one meeting within every six calendar months (GSR 466(E)).']; act='Minimum 2 meetings a year.'; if(c.filingDefault) { st='R'; label='Check relaxation'; why.push(defNote); } }
+    else { why=['First meeting within 30 days of incorporation; minimum 4 meetings a year, gap not exceeding 120 days (s.173(1)).']; act='Quarterly board calendar.'; }
+    add({id:'bm',grp:'brd',title:'Board meetings – frequency',ref:'s.173(1), (5); SS-1',st,label,why,act,basis:'Calendar year / FY'});
+  }
+
+  /* ---------- COMMITTEES ---------- */
+  const acnrcEval=(isNRC)=>{
+    let st,label,why=[],act;
+    if(isNRC && d.s8){ st=c.filingDefault?'R':'E'; label=c.filingDefault?'Check exemption':'Exempt'; why=['s.178 does not apply to Section 8 companies (GSR 466(E)).']; if(c.filingDefault) why.push(defNote); act='—'; }
+    else if(d.listed){ st='A'; label='Applicable'; why=['Every listed company.']; act=isNRC?'NRC: ≥3 non-executive directors, ≥½ independent; remuneration policy in Board report.':'AC: ≥3 directors, majority IDs, majority financially literate (s.177(2)).'; }
+    else if(!d.publicForGov){ st='N'; label='Not applicable'; why=['Private company – not a prescribed class.']; act='—'; }
+    else if(d.idTrig.length){
+      if(d.idExemptClass){ st='E'; label='Exempt'; why=['Thresholds met but unlisted public JV / WOS / dormant company is excluded (proviso to Rule 6, MBP Rules).']; act='Retain evidence of exempt status.'; }
+      else { st='A'; label='Applicable'; why=['Public company: '+d.idTrig.join('; ')+'.']; act=isNRC?'Constitute NRC (≥3 NEDs, ≥½ IDs).':(d.s8?'Constitute AC; majority-ID requirement omitted for Section 8 companies (GSR 466(E)).':'Constitute AC (≥3 directors, majority IDs).'); }
+    } else { st='N'; label='Not applicable'; why=['Public company below Rule 6 thresholds.']; act='—'; }
+    why.push('Thresholds as on last date of latest audited FS.');
+    return {st,label,why,act};
+  };
+  { const r=acnrcEval(false); add({id:'ac',grp:'cmt',title:'Audit Committee',ref:'s.177(1); Rule 6, Companies (Meetings of Board and its Powers) Rules, 2014',...r,basis:'Latest audited FS'}); }
+  { const r=acnrcEval(true); add({id:'nrc',grp:'cmt',title:'Nomination & Remuneration Committee',ref:'s.178(1); Rule 6, MBP Rules',...r,basis:'Latest audited FS'}); }
+  {
+    let st,label,why,act;
+    if(d.s8){ st=c.filingDefault?'R':'E'; label=c.filingDefault?'Check exemption':'Exempt'; why=['s.178 does not apply to Section 8 companies.']; act='—'; }
+    else if(n(c.securityHolders)>P.src_holders){ st='A'; label='Applicable'; why=[`Shareholders + debenture holders + deposit holders + other security holders = ${n(c.securityHolders)} (> ${P.src_holders}) at some time during the FY.`]; act='Constitute SRC; chairperson must be a non-executive director.'; }
+    else { st='N'; label='Not applicable'; why=[`Security holders ${n(c.securityHolders)} ≤ ${P.src_holders}.`]; act='—'; }
+    add({id:'src',grp:'cmt',title:'Stakeholders Relationship Committee',ref:'s.178(5)',st,label,why,act,basis:'Any time during FY'});
+  }
+  {
+    let st,label,why=[],act;
+    const tr=[];
+    if(d.listed) tr.push('listed company');
+    if(c.acceptsPublicDeposits) tr.push('accepts deposits from the public');
+    if(n(c.bankPFIBorrow)>P.vm_bank) tr.push(`bank/PFI borrowings ${cr(c.bankPFIBorrow)} > ₹${P.vm_bank} cr`);
+    if(tr.length){ st='A'; label='Applicable'; why=['Triggered by: '+tr.join('; ')+'.']; act='Board-approved whistle-blower policy; oversight by Audit Committee, else a nominated director; disclose on website & Board report.'; }
+    else { st='N'; label='Not applicable'; why=['No trigger under s.177(9)/Rule 7.']; act='Optional good practice.'; }
+    add({id:'vm',grp:'cmt',title:'Vigil mechanism',ref:'s.177(9)-(10); Rule 7, MBP Rules',st,label,why,act,basis:'Latest audited FS'});
+  }
+  {
+    let st,label,why=[],act,gap='';
+    const tr=[];
+    if(n(c.netWorth)>=P.csr_nw) tr.push(`net worth ${cr(c.netWorth)} ≥ ₹${P.csr_nw} cr`);
+    if(n(c.turnover)>=P.csr_to) tr.push(`turnover ${cr(c.turnover)} ≥ ₹${P.csr_to} cr`);
+    if(n(c.np1)>=P.csr_np) tr.push(`net profit (s.198) ${cr(c.np1)} ≥ ₹${P.csr_np} cr`);
+    if(tr.length){
+      st='A'; label='Applicable';
+      why=['Triggered in immediately preceding FY by: '+tr.join('; ')+'.',
+        `Average net profit (${d.npYears||0} yr${d.npYears===1?'':'s'}) ${cr(d.avgNP)} → 2% obligation ≈ ${cr(d.csrObl)}.`];
+      if(d.npYears<3) why.push('Fewer than 3 years entered – for companies <3 years old, average of years since incorporation applies.');
+      const noCmte = d.csrObl<=P.csr_cmte;
+      act = noCmte ? `Obligation ≤ ₹${P.csr_cmte} cr – CSR Committee not required; Board discharges functions (s.135(9)). Spend, CSR-2, Board report Annexure.` :
+        'Constitute CSR Committee (≥3 directors incl. 1 ID where ID required); CSR policy; spend by FY-end; unspent ongoing-project amounts to Unspent CSR A/c within 30 days; others to Sch. VII fund within 6 months.';
+      if(d.s8) why.push('s.135 has no Section 8 exemption; applicability to a s.8 company’s surplus is debated – document the position.');
+    } else { st='N'; label='Not applicable'; why=['No s.135(1) threshold met in immediately preceding FY.']; act='Re-test every year; once applicable, s.135(7)-(8) continue for unspent amounts.'; }
+    if(c.lawMode==='bill') why.push('Bill 2026 values used (net profit ₹10 cr; committee waiver ₹1 cr) – NOT in force.');
+    add({id:'csr',grp:'cmt',title:'Corporate Social Responsibility',ref:'s.135; Companies (CSR Policy) Rules, 2014; s.198 net profit',st,label,why,act,gap,basis:'Immediately preceding FY'});
+  }
+  {
+    let st,label,why,act;
+    const csrApp = R.find(r=>r.id==='csr').st==='A';
+    if(!has(c.csrAvgObl3) && !csrApp){ st='N'; label='Not applicable'; why=['CSR not applicable; enter 3-year average obligation if CSR applied in earlier years.']; act='—'; }
+    else if(!has(c.csrAvgObl3)){ st='R'; label='Data needed'; why=['Enter the average CSR obligation u/s 135(5) of the 3 immediately preceding FYs.']; act='—'; }
+    else if(n(c.csrAvgObl3)>=P.csr_ia){ st='A'; label='Applicable'; why=[`Average CSR obligation ${cr(c.csrAvgObl3)} ≥ ₹${P.csr_ia} cr.`]; act='Independent impact assessment for projects with outlay ≥ ₹1 cr completed ≥1 year before; cost up to 2% of CSR spend or ₹50 lakh (higher).'; }
+    else { st='N'; label='Not applicable'; why=[`Average obligation ${cr(c.csrAvgObl3)} < ₹${P.csr_ia} cr.`]; act='—'; }
+    add({id:'csria',grp:'cmt',title:'CSR impact assessment',ref:'Rule 8(3), CSR Policy Rules',st,label,why,act,basis:'3 immediately preceding FYs'});
+  }
+
+  /* ---------- KMP ---------- */
+  {
+    let st,label,why,act,gap='';
+    if(d.listed || (d.publicForGov && n(c.paidUp)>=P.kmp_pu)){
+      st='A'; label='Applicable'; why=[d.listed?'Listed company.':`Public company with paid-up ${cr(c.paidUp)} ≥ ₹${P.kmp_pu} cr.`];
+      act='Whole-time KMP: MD/CEO/Manager (or WTD in their absence), Company Secretary and CFO. Vacancy to be filled within 6 months.';
+      const miss=[]; if(c.hasMD==='no') miss.push('MD/CEO/Manager/WTD'); if(c.hasCS==='no') miss.push('Company Secretary'); if(c.hasCFO==='no') miss.push('CFO');
+      if(c.hasMD||c.hasCS||c.hasCFO) gap = miss.length?'Gap: '+miss.join(', ')+' not in position.':'Complies on input.';
+    } else { st='N'; label='Not applicable'; why=[d.publicForGov?`Paid-up ${cr(c.paidUp)} < ₹${P.kmp_pu} cr.`:'Private company – see Rule 8A.']; act='—'; }
+    add({id:'kmp',grp:'kmp',title:'Whole-time KMP (MD/CEO, CS, CFO)',ref:'s.203; Rule 8, Companies (Appointment & Remuneration of Managerial Personnel) Rules, 2014',st,label,why,act,gap,basis:'Paid-up capital'});
+  }
+  {
+    let st,label,why,act,gap='';
+    const kmpApp = R.find(r=>r.id==='kmp').st==='A';
+    if(kmpApp){ st='N'; label='Covered by Rule 8'; why=['Rule 8 already requires a whole-time CS.']; act='—'; }
+    else if(n(c.paidUp)>=P.cs8a_pu){ st='A'; label='Applicable'; why=[`Paid-up ${cr(c.paidUp)} ≥ ₹${P.cs8a_pu} cr.`]; act='Appoint whole-time Company Secretary.'; if(c.hasCS) gap=c.hasCS==='no'?'Gap: no whole-time CS.':'Complies on input.'; }
+    else { st='N'; label='Not applicable'; why=[`Paid-up ${cr(c.paidUp)} < ₹${P.cs8a_pu} cr.`]; act='—'; }
+    add({id:'cs8a',grp:'kmp',title:'Whole-time Company Secretary (other companies)',ref:'Rule 8A, Managerial Personnel Rules',st,label,why,act,gap,basis:'Paid-up capital'});
+  }
+  {
+    let st,label,why,act;
+    if(d.publicForGov){ st='A'; label='Applicable'; why=['Overall cap 11% of net profit (s.198); per-director caps; Schedule V where profits inadequate.']; act='Compute s.198 profit; obtain SR where limits exceeded; disclose ratio in Board report (Rule 5 for listed).'; }
+    else { st='N'; label='Not applicable'; why=['s.197 applies to public companies only.']; act='Remuneration per AoA/board approval.'; }
+    add({id:'s197',grp:'kmp',title:'Managerial remuneration ceilings',ref:'s.197; Schedule V',st,label,why,act,basis:'Each FY'});
+  }
+
+  /* ---------- AUDIT ---------- */
+  {
+    let st,label,why=[],act;
+    if(d.opc||d.small){ st='E'; label='Exempt'; why=['s.139(2) excludes OPCs and small companies.']; act='—'; }
+    else {
+      const tr=[];
+      if(d.listed) tr.push('listed company');
+      if(d.unlistedPublic && n(c.paidUp)>=P.rot_pub_pu) tr.push(`unlisted public, paid-up ≥ ₹${P.rot_pub_pu} cr`);
+      if(d.legalPrivate && n(c.paidUp)>=P.rot_pvt_pu) tr.push(`private, paid-up ≥ ₹${P.rot_pvt_pu} cr`);
+      const pb=n(c.bankPFIBorrow)+n(c.publicDeposits);
+      if(pb>=P.rot_borrow) tr.push(`public borrowings from banks/FIs + public deposits ${cr(pb)} ≥ ₹${P.rot_borrow} cr`);
+      if(tr.length){ st='A'; label='Applicable'; why=['Triggered by: '+tr.join('; ')+'.']; act='Individual auditor max 1 term of 5 yrs; firm max 2 terms of 5 yrs; 5-yr cooling-off.'; }
+      else { st='N'; label='Not applicable'; why=['No Rule 5 class met.']; act='—'; }
+    }
+    why.push('Reckoned on latest audited FS.');
+    add({id:'rotaud',grp:'aud',title:'Rotation of statutory auditors',ref:'s.139(2); Rule 5, Companies (Audit and Auditors) Rules, 2014',st,label,why,act,basis:'Latest audited FS'});
+  }
+  {
+    let st,label,why=[],act;
+    const tr=[];
+    if(d.listed) tr.push('listed company');
+    if(d.unlistedPublic){
+      if(n(c.paidUp)>=P.ia_pub_pu) tr.push(`paid-up ≥ ₹${P.ia_pub_pu} cr`);
+      if(n(c.turnover)>=P.ia_to) tr.push(`turnover ≥ ₹${P.ia_to} cr`);
+      if(n(c.bankPFIBorrowMaxPY)>P.ia_bank) tr.push(`bank/PFI loans > ₹${P.ia_bank} cr at any time in preceding FY`);
+      if(n(c.publicDepositsMaxPY)>=P.ia_dep) tr.push(`deposits ≥ ₹${P.ia_dep} cr at any time in preceding FY`);
+    } else if(!d.listed){
+      if(n(c.turnover)>=P.ia_to) tr.push(`turnover ≥ ₹${P.ia_to} cr`);
+      if(n(c.bankPFIBorrowMaxPY)>P.ia_bank) tr.push(`bank/PFI loans > ₹${P.ia_bank} cr at any time in preceding FY`);
+    }
+    if(tr.length){ st='A'; label='Applicable'; why=['Triggered by: '+tr.join('; ')+'.']; act='Board/AC to appoint internal auditor (CA/CMA/other professional or employee) and define scope; report to AC/Board.'; }
+    else { st='N'; label='Not applicable'; why=['No Rule 13 trigger.']; act='—'; }
+    why.push('Reckoned on preceding FY.');
+    add({id:'ia',grp:'aud',title:'Internal audit',ref:'s.138; Rule 13, Companies (Accounts) Rules, 2014',st,label,why,act,basis:'Preceding FY'});
+  }
+  {
+    let st,label,why=[],act;
+    const tr=[];
+    if(d.listed) tr.push('listed company');
+    if(d.publicForGov && n(c.paidUp)>=P.sa_pu) tr.push(`public, paid-up ≥ ₹${P.sa_pu} cr`);
+    if(d.publicForGov && n(c.turnover)>=P.sa_to) tr.push(`public, turnover ≥ ₹${P.sa_to} cr`);
+    if(n(c.bankPFIBorrow)>=P.sa_bank) tr.push(`outstanding bank/PFI borrowings ${cr(c.bankPFIBorrow)} ≥ ₹${P.sa_bank} cr (applies to every company incl. private – Rule 9(1)(c))`);
+    if(c.materialSubOfListed) tr.push('material unlisted subsidiary of a listed entity (SEBI LODR Reg. 24A)');
+    if(tr.length){ st='A'; label='Applicable'; why=['Triggered by: '+tr.join('; ')+'.']; act='Appoint PCS (peer-reviewed where LODR applies); annex MR-3 to Board report; explain qualifications.'; }
+    else { st='N'; label='Not applicable'; why=['No Rule 9 trigger.']; act='—'; }
+    why.push('Reckoned on last date of latest audited FS (Explanation to Rule 9).');
+    add({id:'sa',grp:'aud',title:'Secretarial audit (MR-3)',ref:'s.204; Rule 9, Managerial Personnel Rules',st,label,why,act,basis:'Latest audited FS'});
+  }
+  {
+    let st,label,why=[],act;
+    if(c.costTable==='none'){ st='N'; label='Not applicable'; why=['No product/service under Table A or B of Rule 3.']; act='—'; }
+    else if(c.msme==='micro'||c.msme==='small'){ st='E'; label='Exempt'; why=['Micro/small enterprise under MSMED Act (incl. turnover criteria u/s 7(9)) – second proviso to Rule 3.']; act='Keep Udyam classification on record.'; }
+    else if(n(c.turnover)>=P.cost_rec){ st='A'; label='Applicable'; why=[`Table ${c.costTable} activity; overall turnover ${cr(c.turnover)} ≥ ₹${P.cost_rec} cr.`]; act='Maintain cost records in Form CRA-1 on a regular basis.'; }
+    else { st='N'; label='Not applicable'; why=[`Overall turnover ${cr(c.turnover)} < ₹${P.cost_rec} cr.`]; act='—'; }
+    add({id:'costrec',grp:'aud',title:'Maintenance of cost records',ref:'s.148(1); Rule 3, Companies (Cost Records and Audit) Rules, 2014',st,label,why,act,basis:'Immediately preceding FY'});
+  }
+  {
+    let st,label,why=[],act;
+    const recApp = R.find(r=>r.id==='costrec').st==='A';
+    if(!recApp){ st='N'; label='Not applicable'; why=['Cost records not required.']; act='—'; }
+    else {
+      const A=c.costTable==='A';
+      const toL=A?P.costA_to:P.costB_to, prL=A?P.costA_prod:P.costB_prod;
+      const meets = n(c.turnover)>=toL && n(c.costProductTurnover)>=prL;
+      if(!meets){ st='N'; label='Not applicable'; why=[`Table ${c.costTable}: needs overall ≥ ₹${toL} cr AND covered products ≥ ₹${prL} cr; actual ${cr(c.turnover)} / ${cr(c.costProductTurnover)}.`]; act='Records only.'; }
+      else if(n(c.exportPct)>P.cost_export || c.sezUnit){ st='E'; label='Exempt'; why=['Thresholds met but '+(c.sezUnit?'company operates from SEZ':'export revenue in foreign exchange > 75% of total revenue')+' (Rule 4(3)).']; act='Records continue; no cost audit.'; }
+      else { st='A'; label='Applicable'; why=[`Table ${c.costTable}: overall ${cr(c.turnover)} ≥ ₹${toL} cr and covered products ${cr(c.costProductTurnover)} ≥ ₹${prL} cr.`]; act='Appoint cost auditor within 180 days of FY start (CRA-2); report CRA-3; file CRA-4.'; }
+    }
+    add({id:'costaud',grp:'aud',title:'Cost audit',ref:'s.148(2); Rule 4, Cost Records & Audit Rules',st,label,why,act,basis:'Immediately preceding FY'});
+  }
+  {
+    let st,label,why=[],act;
+    const ex=[];
+    if(['bank','insurance'].includes(c.sector)) ex.push('banking/insurance company');
+    if(d.s8) ex.push('Section 8 company');
+    if(d.opc) ex.push('OPC');
+    if(d.small) ex.push('small company');
+    if(ex.length){ st='E'; label='Exempt'; why=['Excluded class: '+ex.join(', ')+' (para 1(2)).']; act='—'; }
+    else if(d.legalPrivate && !(c.isHolding&&c.holdingOfPublic) && !d.deemedPublic){
+      const ok = n(c.cyPaidUpReserves)<=P.caro_pur && n(c.cyBankFIBorrowMax)<=P.caro_bor && n(c.cyRevenue)<=P.caro_rev;
+      if(ok){ st='E'; label='Exempt'; why=[`Private company: paid-up+reserves ${cr(c.cyPaidUpReserves)} ≤ ₹${P.caro_pur} cr, bank/FI borrowings ≤ ₹${P.caro_bor} cr throughout FY, total revenue ${cr(c.cyRevenue)} ≤ ₹${P.caro_rev} cr – all three met.`]; act='Auditor to confirm exemption basis in working papers.'; }
+      else { st='A'; label='Applicable'; why=['Private company fails one or more of the three cumulative exemption tests.']; act='CARO 2020 report on all applicable clauses (i)–(xx); clause (xxi) for CFS.'; }
+    } else { st='A'; label='Applicable'; why=['Public company / private company that is holding or subsidiary of a public company.']; act='CARO 2020 report; clause (xxi) for CFS.'; }
+    why.push('Tests apply to the financial year under audit; reserves include debit balance of P&L per ICAI Guidance Note.');
+    add({id:'caro',grp:'aud',title:'CARO 2020',ref:'s.143(11); Companies (Auditor’s Report) Order, 2020, para 1(2)',st,label,why,act,basis:'FY under audit'});
+  }
+  {
+    let st,label,why=[],act;
+    if(d.opc||d.small){ st='E'; label='Exempt'; why=['OPC / small company (GSR 583(E)).']; act='—'; }
+    else if(d.legalPrivate && !d.deemedPublic){
+      const tLow=n(c.turnover)<P.ifc_to, bLow=n(c.cyBorrowBFIBCMax)<P.ifc_bor;
+      const conj=c.ifcReading==='both';
+      if(conj ? (tLow&&bLow) : (tLow||bLow)){ st=c.filingDefault?'R':'E'; label=c.filingDefault?'Check exemption':'Exempt';
+        why=['Private company with '+[tLow&&`turnover ${cr(c.turnover)} < ₹${P.ifc_to} cr (latest audited FS)`, bLow&&`borrowings from banks/FIs/body corporates < ₹${P.ifc_bor} cr at all times in FY`].filter(Boolean).join(' or ')+'.'];
+        why.push(conj?'Conservative reading applied: both limits must be met.':'Literal reading of the notification (“or”): either limit suffices. A conservative view requires both – switch the reading in inputs if your firm follows it.');
+        if(c.filingDefault) why.push(defNote+' Verify item-wise applicability of the condition.');
+        act='Retain basis; MCA Circular 08/2017 clarified applicability from FY 2016-17 audits.'; }
+      else { st='A'; label='Applicable'; why=[conj?'Conservative reading: exemption needs both turnover < ₹'+P.ifc_to+' cr and borrowings < ₹'+P.ifc_bor+' cr; not met.':'Private company exceeds both turnover and borrowing limits.']; act='Auditor reports on adequacy & operating effectiveness of IFC over financial reporting (ICAI Guidance Note).'; }
+    } else { st='A'; label='Applicable'; why=['Public company – no exemption.']; act='Management to document ICFR (RCMs, testing); auditor reports u/s 143(3)(i).'; }
+    add({id:'ifc',grp:'aud',title:'Auditor’s report on internal financial controls',ref:'s.143(3)(i); GSR 583(E) dt 13-06-2017',st,label,why,act,basis:'Latest audited FS / FY'});
+  }
+
+  /* ---------- REPORTING ---------- */
+  {
+    let st,label,why,act;
+    if(d.opc||d.small||c.isDormant||d.startupPvt){ st='E'; label='Exempt'; why=['Cash flow statement not required for OPC, small company, dormant company and start-up private company (s.2(40) proviso).']; if(d.startupPvt&&!d.small&&!d.opc&&c.filingDefault) { st='R'; label='Check exemption'; why.push(defNote); } act='Optional; lenders may still require it.'; }
+    else { st='A'; label='Applicable'; why=['Not within s.2(40) proviso.']; act='Prepare under AS 3 / Ind AS 7.'; }
+    add({id:'cfs',grp:'rpt',title:'Cash flow statement',ref:'s.2(40) proviso',st,label,why,act,basis:'FY'});
+  }
+  {
+    const isA=d.small||d.opc;
+    add({id:'mgt7',grp:'rpt',title:'Annual return form',ref:'s.92(1); Rule 11(1), Companies (Management & Administration) Rules, 2014',st:'A',label:isA?'MGT-7A':'MGT-7',why:[isA?'Small company / OPC files abridged MGT-7A; may be signed by a director where there is no CS (proviso to s.92(1)).':'Full MGT-7, signed by a director and CS (or PCS where no CS).'],act:'File within 60 days of AGM (OPC: within 60 days of 6-month window).',basis:'FY'});
+  }
+  {
+    let st,label,why,act;
+    if(d.listed||n(c.paidUp)>=P.mgt8_pu||n(c.turnover)>=P.mgt8_to){ st='A'; label='Applicable'; why=[d.listed?'Listed company.':`Paid-up ${cr(c.paidUp)} / turnover ${cr(c.turnover)} meets ₹${P.mgt8_pu} cr / ₹${P.mgt8_to} cr test.`]; act='Annual return certified by PCS in Form MGT-8.'; }
+    else { st='N'; label='Not applicable'; why=['Below Rule 11(2) thresholds.']; act='—'; }
+    add({id:'mgt8',grp:'rpt',title:'Annual return certification by PCS (MGT-8)',ref:'s.92(2); Rule 11(2), Mgmt & Admin Rules',st,label,why,act,basis:'Latest FS'});
+  }
+  {
+    const ab=d.small||d.opc;
+    add({id:'br',grp:'rpt',title:'Board’s report – abridged format',ref:'s.134(3); Rule 8A, Companies (Accounts) Rules, 2014',st:ab?'A':'N',label:ab?'Abridged allowed':'Full report',why:[ab?'OPC / small company may prepare the abridged Board’s report under Rule 8A.':'Full Board’s report under s.134(3) and Rule 8.'],act:ab?'Use Rule 8A content.':'Include all s.134(3)/Rule 8 matters (CSR, VM, RPT, energy, risk etc. as applicable).',basis:'FY'});
+  }
+  {
+    let st,label,why=[],act;
+    if(['bank','insurance','electricity','nbfc','hfc'].includes(c.sector)){ st='E'; label='Excluded'; why=['Banking, insurance, power, NBFC and housing finance companies are excluded from the XBRL Rules.']; act='File AOC-4 in non-XBRL form.'; }
+    else {
+      const tr=[];
+      if(d.listed) tr.push('listed company');
+      if(c.subOfListed) tr.push('Indian subsidiary of a listed company');
+      if(n(c.paidUp)>=P.xbrl_pu) tr.push(`paid-up ≥ ₹${P.xbrl_pu} cr`);
+      if(n(c.turnover)>=P.xbrl_to) tr.push(`turnover ≥ ₹${P.xbrl_to} cr`);
+      if(R.find(r=>r.id==='indas').st==='A') tr.push('required to prepare FS under Ind AS');
+      if(tr.length){ st='A'; label='Applicable'; why=['Triggered by: '+tr.join('; ')+'.']; act='File FS in AOC-4 XBRL; cost audit report CRA-4 also in XBRL where applicable.'; }
+      else { st='N'; label='Not applicable'; why=['No XBRL class met.']; act='AOC-4 (or AOC-4 OPC).'; }
+    }
+    add({id:'xbrl',grp:'rpt',title:'Filing financial statements in XBRL',ref:'s.137; Companies (Filing of Documents and Forms in XBRL) Rules, 2015, Rule 3',st,label,why,act,basis:'Latest FS'});
+  }
+  {
+    let st,label,why,act;
+    if(d.opc){ st='E'; label='Exempt'; why=['OPC need not hold an AGM (s.96(1)); ordinary business by circulated resolution (s.122).']; act='—'; }
+    else { st='A'; label='Applicable'; why=['AGM within 6 months of FY-end (first AGM within 9 months); gap ≤15 months.']; act='Calendarise AGM; video-conferencing per MCA circulars as in force.'; }
+    add({id:'agm',grp:'rpt',title:'Annual general meeting',ref:'s.96; s.122',st,label,why,act,basis:'FY'});
+  }
+  {
+    let st,label,why,act;
+    if(c.msmeDues45){ st='A'; label='Applicable'; why=['Outstanding dues to micro/small suppliers beyond 45 days.']; act='Half-yearly MSME Form I (Apr–Sep by 31 Oct; Oct–Mar by 30 Apr); disclose in FS; check Income-tax disallowance – s.43B(h) of the 1961 Act, now s.37 of the Income-tax Act, 2025 (tax year 2026-27 onwards).'; }
+    else { st='N'; label='Not applicable'; why=['No MSE dues beyond 45 days reported.']; act='Re-check every half-year.'; }
+    add({id:'msme1',grp:'rpt',title:'MSME Form I (delayed payments)',ref:'s.405; Specified Companies (Furnishing of information about payment to MSE suppliers) Order, 2019',st,label,why,act,basis:'Half-year'});
+  }
+
+  /* ---------- FINANCE ---------- */
+  {
+    let st,label,why,act;
+    if(d.publicForGov){ st='A'; label='Applicable'; why=['Borrowing beyond paid-up + free reserves + securities premium, sale of undertaking etc. need special resolution (s.180(1)).']; act='Track borrowing headroom; CHG/MGT-14 filings.'; }
+    else { st='E'; label='Exempt'; why=['s.180 does not apply to private companies (GSR 464(E) dt 05-06-2015).']; act='Board approval under s.179(3).'; }
+    add({id:'s180',grp:'fin',title:'Restrictions on Board powers (borrowing, sale)',ref:'s.180',st,label,why,act,basis:'Transaction date'});
+  }
+  {
+    let st,label,why=[],act;
+    if(d.publicForGov){ st='A'; label='Applicable'; why=['Full s.185 regime; s.185(2) route needs special resolution and use of funds for principal business.']; act='Pre-transaction s.185/186 screening.'; }
+    else {
+      const cap=Math.min(2*n(c.paidUp),P.s185_bor);
+      const fails=[];
+      if(c.bodyCorpShareholder) fails.push('a body corporate holds shares');
+      if(n(c.cyBorrowBFIBCMax)>=cap) fails.push(`borrowings from banks/FIs/body corporates ${cr(c.cyBorrowBFIBCMax)} not below ${cr(cap)} (lower of 2× paid-up or ₹${P.s185_bor} cr)`);
+      if(c.repaymentDefault) fails.push('subsisting default in repayment of such borrowings');
+      if(fails.length){ st='A'; label='Applicable'; why=['Private-company exemption unavailable: '+fails.join('; ')+'.']; act='Apply s.185 as for any company.'; }
+      else { st='E'; label='Exempt'; why=['Private company: no body-corporate shareholder; borrowings below cap; no repayment default (GSR 464(E) as amended by GSR 583(E)).']; act='Re-test on each transaction date and record in board minutes.'; }
+    }
+    add({id:'s185',grp:'fin',title:'Loans to directors & interested entities',ref:'s.185',st,label,why,act,basis:'Date of transaction'});
+  }
+  {
+    let st,label,why=[],act;
+    if(d.legalPrivate && !d.s8){
+      const ageY=c.incorpDate?(Date.now()-new Date(c.incorpDate).getTime())/31557600000:null;
+      const startup=c.isStartup && (ageY===null || ageY<5);
+      const capOK = n(c.cyBorrowBFIBCMax) < Math.min(2*n(c.paidUp),P.s185_bor);
+      const relief = startup || (!c.isSubsidiary && !c.isAssociate && capOK && !c.repaymentDefault);
+      st='R'; label=relief?'Members – relaxed':'Members – restricted';
+      why=['Private company cannot accept deposits from the public.', relief? 'May accept from members up to 100% of paid-up + free reserves + securities premium; s.73(2)(a)–(e) do not apply ('+(startup?'start-up within 5 years of incorporation':'not a subsidiary/associate, borrowings below cap, no default')+').':'Member deposits subject to s.73(2)(a)–(e) (circular, deposit insurance, repayment reserve, etc.).'];
+      if(c.isStartup && !startup) why.push('Start-up is more than 5 years old, so the start-up route to the s.73(2) exemption has lapsed; the Rule 3(3) limit relief for start-ups runs for 10 years.');
+      if(c.isStartup && ageY===null) why.push('Enter the date of incorporation: the start-up route to the s.73(2) exemption lasts 5 years from incorporation.');
+      act='Report in DPT-3 (annual by 30 June); director/relative loans need declaration.';
+    } else if(d.publicForGov){
+      if(n(c.netWorth)>=P.dep_nw||n(c.turnover)>=P.dep_to){ st='A'; label='Eligible company'; why=[`Net worth ${cr(c.netWorth)} / turnover ${cr(c.turnover)} meets ₹${P.dep_nw} cr / ₹${P.dep_to} cr – may accept public deposits with special resolution, credit rating and DPT-1.`]; act='Observe Rule 3 limits (10% members, 25% public of paid-up + free reserves + SP).'; }
+      else { st='R'; label='Members only'; why=['Not an eligible company – deposits only from members subject to s.73(2).']; act='DPT-3 annually.'; }
+    } else { st='R'; label='Review'; why=['Section 8 private company – check AoA and s.73 conditions before accepting member deposits.']; act='DPT-3 for exempted receipts.'; }
+    add({id:'dep',grp:'fin',title:'Acceptance of deposits',ref:'s.73, s.76; Companies (Acceptance of Deposits) Rules, 2014; GSR 464(E)/583(E)',st,label,why,act,basis:'Transaction date'});
+  }
+  {
+    let st,label,why=[],act;
+    if(d.listed){ st='A'; label='Applicable'; why=['Listed – securities already in depository system (SEBI/Depositories Act).']; act='Maintain 100% promoter holding in demat.'; }
+    else if(d.legalPublic){
+      if(c.isWOS||c.isGovt||c.sector==='nidhi'){ st='E'; label='Exempt'; why=['Rule 9A excludes wholly owned subsidiaries, government companies and Nidhis.']; act='—'; }
+      else { st='A'; label='Applicable'; why=['Unlisted public company: issue securities only in demat; promoters/directors/KMP holdings in demat before further issue (Rule 9A).']; act='ISIN, PAS-6 half-yearly reconciliation.'; }
+    } else {
+      if(c.isGovt){ st='E'; label='Exempt'; why=['Government company excluded from Rule 9B.']; act='—'; }
+      else if(d.small){ st='E'; label='Exempt'; why=['Small company excluded from Rule 9B.','If the company was non-small on an earlier FY-end (pre-Dec 2025 limits), take a view on obligations already triggered – no MCA clarification seen.']; act='Document the position.'; }
+      else { st='A'; label='Applicable'; why=['Private non-small company: demat issue/transfer mandatory – by 30-06-2025 for companies non-small on 31-03-2023, else within 18 months of the FY-end on which it ceased to be small (Rule 9B(2)).']; act='ISIN for each security; PAS-6 half-yearly; holders must demat before transfer/subscription.'; }
+    }
+    add({id:'demat',grp:'fin',title:'Dematerialisation of securities',ref:'s.29(1A); Rules 9A / 9B, Companies (Prospectus & Allotment of Securities) Rules, 2014',st,label,why,act,basis:'FY-end status'});
+  }
+
+  /* ---------- OTHER ---------- */
+  {
+    const elig = d.small||d.opc||c.isStartup||c.sector==='producer';
+    add({id:'s446b',grp:'oth',title:'Lower penalties (half of normal)',ref:'s.446B',st:elig?'A':'N',label:elig?'Benefit available':'Not available',why:[elig?'Small company / OPC / start-up / producer company: penalty for specified defaults capped at 50% of normal (max ₹2 lakh company, ₹1 lakh officer).':'Not an eligible class.'],act:'—',basis:'Date of default'});
+  }
+  {
+    const elig = d.small||c.isStartup;
+    add({id:'s233',grp:'oth',title:'Fast-track merger route',ref:'s.233; Rule 25, Companies (CAA) Rules, 2016 (as amended)',st:'R',label:elig?'Eligible class':'Check Rule 25',why:[elig?'Small companies and start-ups are eligible classes for s.233 mergers.':'Holding–WOS and other classes added by amendments to Rule 25 – verify current conditions.','Bill 2026 proposes lowering creditor approval to 75% in value – not in force.'],act:'Assess when restructuring.',basis:'At scheme'});
+  }
+  {
+    let st='N',label='Not applicable',why=['Incorporated on/before 02-11-2018 or no share capital.'],act='—';
+    if(c.incorpDate && c.incorpDate>'2018-11-02' && !c.noShareCapital){ st='A'; label='Applicable'; why=['Company with share capital incorporated after 02-11-2018.']; act='INC-20A within 180 days of incorporation before commencing business/borrowing.'; }
+    add({id:'inc20a',grp:'oth',title:'Declaration of commencement of business',ref:'s.10A; Rule 23A Incorporation Rules',st,label,why,act,basis:'Incorporation'});
+  }
+
+  return {results:R, derived:d};
+}
+
+
+
+</script>
+<script>
+(function(){
+'use strict';
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??'').replace(/[&<>"]/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[ch]));
+const toast=(m)=>{const t=$('#toast');t.textContent=m;t.classList.add('on');clearTimeout(t._h);t._h=setTimeout(()=>t.classList.remove('on'),1800);};
+
+/* ---------- form schema ---------- */
+const TYPE_OPTS=[['private','Private company'],['opc','One Person Company'],['unlisted','Public company – unlisted'],['listed','Public company – listed'],['s8pvt','Section 8 – private'],['s8pub','Section 8 – public']];
+const YN=[['','—'],['yes','Yes'],['no','No']];
+const S=[
+ {sec:'Company',open:true,f:[
+  {k:'name',l:'Company name',t:'txt',full:1},
+  {k:'cin',l:'CIN',t:'txt'},{k:'fy',l:'FY of analysis',t:'txt',ph:'2026-27'},
+  {k:'type',l:'Constitution',t:'sel',o:TYPE_OPTS,full:1},
+  {k:'listingType',l:'Listed on',t:'sel',o:[['main','Main board (equity)'],['debt','Debt securities only'],['sme','SME exchange']],full:1,show:c=>c.type==='listed'},
+  {k:'sector',l:'Sector / special status',t:'sel',o:[['general','General'],['nbfc','NBFC'],['hfc','Housing finance'],['bank','Banking company'],['insurance','Insurance company'],['electricity','Electricity company'],['nidhi','Nidhi'],['producer','Producer company']],full:1},
+  {k:'incorpDate',l:'Date of incorporation',t:'date'},
+  {k:'noShareCapital',l:'No share capital (limited by guarantee)',t:'chk'},
+ ]},
+ {sec:'Group position & status',f:[
+  {k:'isHolding',l:'Holding company of another company',t:'chk'},
+  {k:'holdingOfPublic',l:'…and that subsidiary is a public company',t:'chk',show:c=>c.isHolding},
+  {k:'isSubsidiary',l:'Subsidiary of another company',t:'chk'},
+  {k:'parentPublic',l:'…holding company is a public company',t:'chk',show:c=>c.isSubsidiary},
+  {k:'deemedView',l:'Treat private subsidiary of a public company as public for governance tests',t:'chk',show:c=>c.isSubsidiary&&c.parentPublic&&['private','s8pvt'].includes(c.type)},
+  {k:'isWOS',l:'Wholly owned subsidiary',t:'chk',show:c=>c.isSubsidiary},
+  {k:'subOfListed',l:'Indian subsidiary of a listed company',t:'chk',show:c=>c.isSubsidiary},
+  {k:'materialSubOfListed',l:'Material unlisted subsidiary of a listed entity (LODR 24A)',t:'chk',show:c=>c.isSubsidiary},
+  {k:'isJV',l:'Joint venture company',t:'chk'},
+  {k:'isAssociate',l:'Associate of another company',t:'chk'},
+  {k:'groupIndAS',l:'Holding/subsidiary/JV/associate of an Ind AS company',t:'chk'},
+  {k:'parentNonSMC',l:'Holding/subsidiary of a non-SMC (AS Rules 2021)',t:'chk'},
+  {k:'isDormant',l:'Dormant company (s.455)',t:'chk'},
+  {k:'isStartup',l:'DPIIT-recognised start-up',t:'chk'},
+  {k:'isGovt',l:'Government company (s.2(45))',t:'chk'},
+  {k:'bodyCorpShareholder',l:'Any body corporate holds shares in the company',t:'chk'},
+  {k:'filingDefault',l:'Default in filing FS (s.137) or annual return (s.92)',t:'chk'},
+  {k:'repaymentDefault',l:'Subsisting default in repaying borrowings',t:'chk'},
+ ]},
+ {sec:'Latest audited financials (preceding FY)',open:true,hint:'₹ crore. Most thresholds are read on the last date of the latest audited financial statements or the immediately preceding FY.',f:[
+  {k:'paidUp',l:'Paid-up share capital',t:'num'},
+  {k:'turnover',l:'Turnover – s.2(91)',t:'num'},
+  {k:'netWorth',l:'Net worth – s.2(57)',t:'num'},
+  {k:'np1',l:'Net profit s.198 – FY-1',t:'num'},
+  {k:'np2',l:'Net profit s.198 – FY-2',t:'num'},
+  {k:'np3',l:'Net profit s.198 – FY-3',t:'num'},
+  {k:'csrAvgObl3',l:'Avg CSR obligation, last 3 FYs',t:'num'},
+  {k:'aggLDD',l:'Loans + debentures + deposits outstanding',t:'num'},
+  {k:'bankPFIBorrow',l:'Bank / PFI borrowings outstanding',t:'num'},
+  {k:'publicDeposits',l:'Public deposits outstanding',t:'num'},
+  {k:'bankPFIBorrowMaxPY',l:'Bank / PFI borrowings – peak in FY',t:'num'},
+  {k:'publicDepositsMaxPY',l:'Deposits – peak in FY',t:'num'},
+  {k:'totalBorrowMaxPY',l:'All borrowings incl. deposits – peak',t:'num'},
+  {k:'securityHolders',l:'Security holders – peak (nos.)',t:'num'},
+  {k:'acceptsPublicDeposits',l:'Accepts deposits from the public',t:'chk'},
+ ]},
+ {sec:'Year under audit (CARO, IFC, s.185)',hint:'₹ crore, for the financial year being audited.',f:[
+  {k:'cyPaidUpReserves',l:'Paid-up + reserves at BS date',t:'num'},
+  {k:'cyRevenue',l:'Total revenue incl. other income',t:'num'},
+  {k:'cyBankFIBorrowMax',l:'Bank / FI borrowings – peak',t:'num'},
+  {k:'cyBorrowBFIBCMax',l:'Bank/FI/body-corporate borrowings – peak',t:'num'},
+  {k:'ifcReading',l:'IFC exemption (pvt) – reading of “turnover < ₹50 cr or borrowings < ₹25 cr”',t:'sel',o:[['either','Literal – either limit suffices'],['both','Conservative – both limits must be met']],full:1},
+ ]},
+ {sec:'Cost records & MSME',f:[
+  {k:'costTable',l:'Products/services under Rule 3',t:'sel',o:[['none','None'],['A','Table A – regulated'],['B','Table B – non-regulated']],full:1},
+  {k:'costProductTurnover',l:'Turnover of covered products',t:'num',show:c=>c.costTable!=='none'},
+  {k:'exportPct',l:'Export revenue in FX (%)',t:'num',show:c=>c.costTable!=='none'},
+  {k:'sezUnit',l:'Operates from SEZ',t:'chk',show:c=>c.costTable!=='none'},
+  {k:'msme',l:'Udyam classification',t:'sel',o:[['none','Not registered / large'],['micro','Micro'],['small','Small'],['medium','Medium']],full:1},
+  {k:'msmeDues45',l:'Dues to micro/small suppliers beyond 45 days',t:'chk'},
+ ]},
+ {sec:'Board & KMP in position (gap test)',hint:'Optional. Leave blank to skip compliance-gap testing.',f:[
+  {k:'nDirectors',l:'Total directors',t:'num'},{k:'nID',l:'Independent directors',t:'num'},
+  {k:'nWomen',l:'Women directors',t:'num'},{k:'residentDir',l:'Resident director (182 days)',t:'sel',o:YN},
+  {k:'hasMD',l:'MD / CEO / Manager / WTD',t:'sel',o:YN},{k:'hasCS',l:'Whole-time CS',t:'sel',o:YN},
+  {k:'hasCFO',l:'CFO',t:'sel',o:YN},
+ ]},
+];
+const ALLF=S.flatMap(s=>s.f);
+const DEFAULTS={type:'private',listingType:'main',sector:'general',costTable:'none',msme:'none',deemedView:true,ifcReading:'either'};
+
+function buildForm(){
+  const h=S.map((s,i)=>`<details class="sec" ${s.open?'open':''}><summary>${esc(s.sec)}</summary><div class="fields">${s.hint?`<p class="hint">${esc(s.hint)}</p>`:''}${s.f.map(f=>{
+    const id='f_'+f.k;
+    if(f.t==='chk') return `<label class="chk" data-k="${f.k}"><input type="checkbox" id="${id}"> ${esc(f.l)}</label>`;
+    let inp;
+    if(f.t==='sel') inp=`<select id="${id}">${f.o.map(o=>`<option value="${o[0]}">${esc(o[1])}</option>`).join('')}</select>`;
+    else if(f.t==='num') inp=`<input type="number" step="any" inputmode="decimal" id="${id}">`;
+    else if(f.t==='date') inp=`<input type="date" id="${id}">`;
+    else inp=`<input type="text" id="${id}" ${f.ph?`placeholder="${esc(f.ph)}"`:''}>`;
+    return `<div class="f ${f.full?'full':''}" data-k="${f.k}"><label for="${id}">${esc(f.l)}</label>${inp}</div>`;
+  }).join('')}</div></details>`).join('');
+  $('#form').innerHTML=h;
+  $('#form').addEventListener('input',onChange);
+  $('#form').addEventListener('change',onChange);
+}
+function readForm(){
+  const c={};
+  ALLF.forEach(f=>{const el=document.getElementById('f_'+f.k);
+    if(f.t==='chk') c[f.k]=el.checked;
+    else if(f.t==='num') c[f.k]= el.value===''?null:Number(el.value);
+    else c[f.k]=el.value;});
+  return c;
+}
+function writeForm(c){
+  ALLF.forEach(f=>{const el=document.getElementById('f_'+f.k); let v=c[f.k]; if(v===undefined) v=DEFAULTS[f.k];
+    if(f.t==='chk') el.checked=!!v; else el.value=(v===null||v===undefined)?(f.t==='sel'?(f.o[0][0]):''):v;});
+  onChange();
+}
+function applyVisibility(c){
+  ALLF.forEach(f=>{ if(!f.show) return; const el=document.querySelector(`[data-k="${f.k}"]`); el.classList.toggle('hidden',!f.show(c)); });
+}
+
+/* ---------- params ---------- */
+let customP=null;
+function params(mode){
+  if(mode==='bill') return Object.assign({},PARAMS_ENACTED,PARAMS_BILL_DELTA);
+  if(mode==='custom') return Object.assign({},PARAMS_ENACTED,customP||{});
+  return Object.assign({},PARAMS_ENACTED);
+}
+
+/* ---------- render ---------- */
+const ST={A:'Applicable',E:'Exempt',R:'Review / conditional',N:'Not applicable'};
+const STC={A:'var(--pri)',E:'var(--ok)',R:'var(--rev)',N:'var(--rule)'};
+let filt=new Set(['A','E','R','N']), last=null;
+const TYPE_TXT=Object.fromEntries(TYPE_OPTS);
+
+function render(){
+  const c=readForm(); const mode=$('#lawMode').value; c.lawMode=mode;
+  applyVisibility(c);
+  const P=params(mode);
+  const {results,derived:d}=evaluate(c,P);
+  last={c,results,d,mode};
+  const nm=c.name||'The company';
+  let v=`${esc(nm)} is ${/^[aeiou]/i.test(TYPE_TXT[c.type])?'an':'a'} ${esc(TYPE_TXT[c.type].toLowerCase())}`;
+  if(d.small) v+=' and qualifies as a small company under s.2(85).';
+  else if(d.legalPrivate&&!d.s8&&!d.opc) v+=d.smallFin?', but is excluded from small-company status.':' and does not qualify as a small company.';
+  else v+='.';
+  if(d.deemedPublic) v+=' It is a deemed public company (proviso to s.2(71)).';
+  $('#verdict').innerHTML=v;
+  const cnt={A:0,E:0,R:0,N:0}; results.forEach(r=>cnt[r.st]++);
+  const gaps=results.filter(r=>r.gap&&/^Gap/.test(r.gap)).length;
+  $('#sub').textContent=`${results.length} provisions tested · law basis: ${$('#lawMode').selectedOptions[0].text}${gaps?` · ${gaps} compliance gap${gaps>1?'s':''} found`:''}`;
+  $('#bar').innerHTML=['A','R','E','N'].map(k=>`<span style="width:${cnt[k]/results.length*100}%;background:${STC[k]}"></span>`).join('');
+  $('#tally').classList.toggle('f',filt.size<4);
+  $('#tally').innerHTML=['A','R','E','N'].map(k=>`<button data-st="${k}" aria-pressed="${filt.has(k)}"><span class="pill st-${k}">${ST[k]}</span> <b>${cnt[k]}</b></button>`).join('');
+  // warnings
+  const w=[];
+  if(mode==='bill') w.push('Bill mode: thresholds from the Corporate Laws (Amendment) Bill, 2026 (JPC report tabled 03-Aug-2026). Not law until enacted and notified – use for impact planning only.');
+  if(mode==='custom') w.push('Custom thresholds in use – see Threshold master for changed values.');
+  const core=['paidUp','turnover','netWorth','np1'].filter(k=>c[k]===null);
+  if(core.length) w.push('Blank fields treated as zero: '+core.map(k=>ALLF.find(f=>f.k===k).l).join(', ')+'.');
+  $('#warn').innerHTML=w.map(x=>`<div class="warn">${esc(x)}</div>`).join('');
+  // register
+  const q=$('#q').value.trim().toLowerCase(); const go=$('#gapOnly').checked;
+  $('#reg').innerHTML=GROUPS.map(([g,gt])=>{
+    const rows=results.filter(r=>r.grp===g && filt.has(r.st) && (!go||(r.gap&&/^Gap/.test(r.gap))) && (!q||(r.title+' '+r.ref+' '+r.why.join(' ')).toLowerCase().includes(q)));
+    if(!rows.length) return '';
+    return `<div class="grp"><h2>${esc(gt)}</h2>${rows.map(r=>`<div class="row">
+      <div><span class="pill st-${r.st}">${esc(r.label||ST[r.st])}</span></div>
+      <div><div class="t">${esc(r.title)}</div><div class="ref">${esc(r.ref)}</div></div>
+      <div class="why"><ul>${r.why.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div>
+      <div class="act">${esc(r.act||'—')}${r.gap?`<div class="gap ${/^Gap/.test(r.gap)?'bad':''}">${esc(r.gap)}</div>`:''}<div class="basis">Reckoning: ${esc(r.basis||'—')}</div></div>
+    </div>`).join('')}</div>`;
+  }).join('') || '<p class="sub">No provisions match the current filter.</p>';
+  // print header
+  $('#pp').innerHTML=`<table><tr><td><b>Client:</b> ${esc(c.name||'')}</td><td><b>CIN:</b> ${esc(c.cin||'')}</td><td><b>FY:</b> ${esc(c.fy||'')}</td></tr>
+   <tr><td><b>Working paper:</b> Companies Act applicability</td><td><b>Law basis:</b> ${esc($('#lawMode').selectedOptions[0].text)}</td><td><b>Generated:</b> ${new Date().toLocaleDateString('en-GB').replace(/\//g,'-')}</td></tr>
+   <tr><td><b>Prepared by:</b> ____________</td><td><b>Reviewed by:</b> ____________</td><td><b>Firm:</b> BRS &amp; Associates</td></tr></table>`;
+  renderMaster(P);
+}
+function renderMaster(P){
+  const mode=$('#lawMode').value, bill=Object.assign({},PARAMS_ENACTED,PARAMS_BILL_DELTA);
+  $('#master').innerHTML=`<thead><tr><th>Threshold</th><th>Authority</th><th class="num">In force</th><th class="num">Bill 2026</th><th class="num">In use</th></tr></thead><tbody>`+
+   PARAM_META.map(([k,l,ref,u])=>{
+    const cur=P[k], chg=cur!==PARAMS_ENACTED[k];
+    const cell = mode==='custom'?`<input type="number" step="any" data-p="${k}" value="${cur}">`:cur;
+    return `<tr class="${chg?'chg':''}"><td>${esc(l)}</td><td>${esc(ref)}</td><td class="num">${PARAMS_ENACTED[k]} ${u}</td><td class="num">${bill[k]} ${u}</td><td class="num">${cell}${mode==='custom'?'':' '+u}</td></tr>`;
+   }).join('')+'</tbody>';
+}
+function onChange(){ render(); }
+
+/* ---------- notes ---------- */
+$('#tab-notes').innerHTML=`
+<h3>How to read the register</h3>
+<ul><li><b>Applicable</b> – the provision binds the company on the inputs given.</li>
+<li><b>Exempt</b> – the provision would apply but a statutory exemption or notification lifts it; keep evidence of the exemption condition.</li>
+<li><b>Review / conditional</b> – the answer depends on facts or interpretation not captured (e.g. deemed-public status, filing-default conditions), or the item is a relief/eligibility rather than an obligation.</li>
+<li><b>Not applicable</b> – no trigger met.</li></ul>
+<h3>Reckoning dates differ by provision</h3>
+<p>Independent directors, audit/NRC committees, woman director, secretarial audit and auditor rotation are tested on the last date of the latest audited financial statements. CSR, internal audit, cost records and small-company turnover use the immediately preceding FY. Stakeholders Relationship Committee and internal-audit borrowing/deposit tests look at the peak at any time during the year. CARO and IFC exemptions are tested for the year under audit. Enter each figure for the period its field describes.</p>
+<h3>Key law updates built in</h3>
+<ul><li>Small company limits ₹10 cr paid-up / ₹100 cr turnover – GSR 880(E) dated 01-12-2025, effective on publication.</li>
+<li>Rule 9B demat for private non-small companies – deadline 30-06-2025 (Feb-2025 amendment); thereafter 18 months from the FY-end on which a company ceases to be small.</li>
+<li>Secretarial audit extended to every company with bank/PFI borrowings ≥ ₹100 cr (Rule 9(1)(c), w.e.f. 01-04-2020).</li>
+<li>Section 8 relaxations – GSR 466(E) dated 05-06-2015 as amended by GSR 584(E) dated 13-06-2017; private company relaxations – GSR 464(E) and GSR 583(E).</li></ul>
+<h3>Pending: Corporate Laws (Amendment) Bill, 2026</h3>
+<p>Introduced 23-03-2026, referred to a JPC, report tabled 03-08-2026. Not enacted as at the date of this tool. Proposals modelled in “Bill” mode: CSR net-profit trigger ₹10 cr (s.135(1)); CSR committee waiver raised from ₹50 lakh to ₹1 cr obligation (s.135(9); no change recommended by the JPC). The Bill raises the small-company <i>ceiling</i> in s.2(85) to ₹20 cr / ₹200 cr, but the operative limits stay ₹10 cr / ₹100 cr until new Rules are notified, so small-company status is not changed in Bill mode. Other proposals (unspent-CSR window 90 days, fast-track merger at 75% creditor value, NFRA powers) are noted in the register but not modelled.</p>
+<h3>Interpretation points flagged, not resolved</h3>
+<ul><li>Deemed public company status of a private subsidiary of a public company – toggle in Group position; contrary views exist on whether every public-company provision applies.</li>
+<li>CSR for Section 8 companies – s.135 contains no exemption; practice varies.</li>
+<li>Whether companies that became small after Dec-2025 remain bound by Rule 9B obligations already triggered – no MCA clarification seen.</li>
+<li>Item-wise reach of the “no filing default” condition in GSR 583(E)/584(E) – verify against the notification text.</li></ul>
+<h3>Out of scope</h3>
+<p>SEBI LODR in detail, RBI/IRDAI sectoral directions, FEMA, specified IFSC companies, Nidhi Rules, producer company provisions (Chapter XXIA), s.186/188 transaction limits, and any notification issued after the update date. Validate high-stakes conclusions against the bare Act and Rules on the MCA portal.</p>`;
+
+/* ---------- storage (IndexedDB) ---------- */
+let db=null;
+function idb(){ return new Promise(res=>{ try{ const r=indexedDB.open('brsCLA',1);
+  r.onupgradeneeded=()=>{const d=r.result; d.createObjectStore('profiles',{keyPath:'name'}); d.createObjectStore('settings');};
+  r.onsuccess=()=>{db=r.result;res(db)}; r.onerror=()=>res(null);}catch(e){res(null)} }); }
+function tx(store,mode,fn){ return new Promise((res,rej)=>{ if(!db) return res(null); try{const t=db.transaction(store,mode);const s=t.objectStore(store);const q=fn(s);t.oncomplete=()=>res(q&&q.result);t.onerror=()=>rej(t.error);}catch(e){res(null)} }); }
+async function refreshList(){ const all=await tx('profiles','readonly',s=>s.getAll())||[];
+  $('#profileList').innerHTML='<option value="">Saved companies…</option>'+all.sort((a,b)=>a.name.localeCompare(b.name)).map(p=>`<option>${esc(p.name)}</option>`).join(''); }
+async function saveSettings(){ await tx('settings','readwrite',s=>s.put({customP,mode:$('#lawMode').value,theme:document.documentElement.dataset.theme||''},'prefs')); }
+
+$('#bSave').onclick=async()=>{ const c=readForm(); if(!c.name){toast('Enter a company name to save');return;} if(!db){toast('Browser storage unavailable – use Export JSON');return;}
+  await tx('profiles','readwrite',s=>s.put({name:c.name,data:c,saved:new Date().toISOString()})); await refreshList(); $('#profileList').value=c.name; toast('Saved '+c.name); };
+$('#bDel').onclick=async()=>{ const n=$('#profileList').value; if(!n){toast('Pick a saved company first');return;} if(!confirm('Delete saved profile "'+n+'"?'))return;
+  await tx('profiles','readwrite',s=>s.delete(n)); await refreshList(); toast('Deleted'); };
+$('#profileList').onchange=async e=>{ const n=e.target.value; if(!n) return; const p=await tx('profiles','readonly',s=>s.get(n)); if(p) {writeForm(p.data); toast('Loaded '+n);} };
+$('#bNew').onclick=()=>{ writeForm({}); $('#profileList').value=''; };
+$('#bSample').onclick=()=>writeForm({name:'Sample Industries Private Limited',cin:'U00000GJ2016PTC000000',fy:'2026-27',type:'private',sector:'general',incorpDate:'2016-04-01',
+  isSubsidiary:false,paidUp:12,turnover:240,netWorth:95,np1:9.5,np2:7.2,np3:6.1,aggLDD:70,bankPFIBorrow:110,bankPFIBorrowMaxPY:125,publicDeposits:0,totalBorrowMaxPY:125,securityHolders:45,
+  cyPaidUpReserves:105,cyRevenue:262,cyBankFIBorrowMax:120,cyBorrowBFIBCMax:128,costTable:'B',costProductTurnover:150,exportPct:20,msme:'medium',msmeDues45:true,
+  nDirectors:3,residentDir:'yes',hasCS:'no',hasCFO:'yes',hasMD:'yes',deemedView:true});
+$('#bJson').onclick=()=>{ const c=readForm(); const blob=new Blob([JSON.stringify({tool:'BRS-CLA',v:1,data:c},null,2)],{type:'application/json'});
+  const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=(c.name||'company').replace(/[^\w]+/g,'_')+'_CA2013_inputs.json'; a.click(); setTimeout(()=>URL.revokeObjectURL(a.href),1000); };
+$('#fImport').onchange=e=>{ const f=e.target.files[0]; if(!f) return; const r=new FileReader(); r.onload=()=>{ try{ const j=JSON.parse(r.result); writeForm(j.data||j); toast('Imported'); }catch(err){ toast('Not a valid inputs file'); } }; r.readAsText(f); e.target.value=''; };
+$('#bCsv').onclick=()=>{ if(!last) return; const q=v=>'"'+String(v??'').replace(/"/g,'""')+'"';
+  const G=Object.fromEntries(GROUPS);
+  const rows=[['Area','Provision','Statutory reference','Status','Outcome','Reasoning','Action','Compliance gap','Reckoning']].concat(
+    last.results.map(r=>[G[r.grp],r.title,r.ref,ST[r.st],r.label||'',r.why.join(' | '),r.act||'',r.gap||'',r.basis||'']));
+  const csv='\ufeff'+rows.map(r=>r.map(q).join(',')).join('\r\n');
+  const a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'})); a.download=(last.c.name||'company').replace(/[^\w]+/g,'_')+'_CA2013_applicability.csv'; a.click(); setTimeout(()=>URL.revokeObjectURL(a.href),1000); };
+$('#bPrint').onclick=()=>window.print();
+$('#bAbout').onclick=()=>{ $('#about').hidden=false; };
+$('#aboutClose').onclick=()=>{ $('#about').hidden=true; };
+$('#about').addEventListener('click',e=>{ if(e.target.id==='about') e.currentTarget.hidden=true; });
+document.addEventListener('keydown',e=>{ if(e.key==='Escape') $('#about').hidden=true; });
+(function splash(){ const lis=document.querySelectorAll('#spChecks li');
+  lis.forEach((li,i)=>setTimeout(()=>{ li.className='ok'; $('#spFill').style.width=((i+1)/lis.length*100)+'%'; },120+i*180));
+  setTimeout(()=>$('#splash').classList.add('out'),120+lis.length*180+250);
+  setTimeout(()=>$('#splash').remove(),120+lis.length*180+800); })();
+$('#bTheme').onclick=()=>{ const r=document.documentElement; const dark=r.dataset.theme? r.dataset.theme==='dark' : matchMedia('(prefers-color-scheme: dark)').matches; r.dataset.theme=dark?'light':'dark'; saveSettings(); };
+$('#lawMode').onchange=()=>{ if($('#lawMode').value==='custom'&&!customP) customP=Object.assign({},PARAMS_ENACTED); saveSettings(); render(); };
+$('#master').addEventListener('change',e=>{ const k=e.target.dataset.p; if(!k) return; const v=Number(e.target.value); if(!isFinite(v)) return; customP=Object.assign({},customP||PARAMS_ENACTED,{[k]:v}); saveSettings(); render(); });
+$('#bResetP').onclick=()=>{ customP=Object.assign({},PARAMS_ENACTED); saveSettings(); render(); toast('Custom thresholds reset'); };
+$('#tally').addEventListener('click',e=>{ const b=e.target.closest('button'); if(!b) return; const k=b.dataset.st;
+  if(filt.size===4){ filt=new Set([k]); } else if(filt.has(k)){ filt.delete(k); if(!filt.size) filt=new Set(['A','E','R','N']); } else filt.add(k); render(); });
+$('#q').oninput=render; $('#gapOnly').onchange=render;
+document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>{ document.querySelectorAll('.tabs button').forEach(x=>x.setAttribute('aria-selected',x===b)); ['reg','master','notes'].forEach(t=>$('#tab-'+t).classList.toggle('hidden',t!==b.dataset.tab)); });
+
+/* ---------- boot ---------- */
+buildForm(); writeForm({});
+idb().then(async ()=>{ await refreshList(); const s=await tx('settings','readonly',st=>st.get('prefs'));
+  if(s){ customP=s.customP||null; if(s.mode) $('#lawMode').value=s.mode; if(s.theme) document.documentElement.dataset.theme=s.theme; render(); } });
+})();
+</script>
+</body>
+</html>
